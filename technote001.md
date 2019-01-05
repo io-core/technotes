@@ -14,7 +14,7 @@ To adjust OberonV5, the following files require the following changes:
     * in `PROCEDURE NewCaption` use   `BEGIN Texts.Write(W, 0AX);`
 * Texts.Mod
     * in `CONST` section use   `TAB = 9X; CR = 0DX; NL = 0AX;  maxD = 9;`
-    * in `PROCEDURE Scan` use  `WHILE (ch = " ") OR (ch = TAB) OR (ch = NL) OR (ch = CR) DO`
+    * in `PROCEDURE Scan` use  `WHILE ~S.eot & (ch <= " ") DO`
     * in `PROCEDURE Scan` use  `IF (ch = NL) OR (ch = CR) THEN INC(S.line) END ;`
     * in `PROCEDURE WriteLn` use   `BEGIN Write(W, NL)`
 * TextFrames.Mod
