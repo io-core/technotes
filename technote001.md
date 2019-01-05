@@ -1,7 +1,7 @@
 # Tech Note 001
 Changing OberonV5 to use NL instead of CR for terminating lines in text
 
-In order to be able to work smoothly with existing files, an Oberon system that accepts NL to terminate lines should also accept CR but should emit NL when producing new line termination characters.
+In order to be able to work smoothly with existing files, an Oberon system that accepts NL to terminate lines should continue to accept CR in source texts but should emit NL when producing new line termination characters.
 
 To adjust OberonV5, the following files are modified:
 * ORS.Mod 
@@ -14,8 +14,12 @@ To adjust OberonV5, the following files are modified:
     * in PROCEDURE Scan use       IF (ch = CR) OR (ch = NL) THEN INC(S.line) END ;
     * in PROCEDURE WriteLn use   BEGIN Write(W, NL)
 * TextFrames.Mod
+    * in CONST section use     BS = 8X; TAB = 9X; CR = 0DX; NL = 0AX; DEL = 7FX;
+    * in PROCEDURE DisplayLine use     WHILE (nextCh # CR) & (nextCh # NL) & (R.fnt # NIL) DO
+    * in PROCEDURE Validate use       REPEAT Texts.Read(R, nextCh); INC(pos) UNTIL R.eot OR (nextCh = CR) OR (nextCh = NL)
+    * in PROCEDURE Write use     ELSIF (20X <= ch) & (ch <= DEL) OR (ch = CR) OR (ch = NL) OR (ch = TAB) THEN
 * System.Mod
-
+    * in PROCEDURE Directory use     IF (ch = "^") OR (ch = 0DX) OR (ch = 0AX) THEN
 If the source texts (.Mod files) being introduced to an un-converted OberonV5 system already use newlines instead of carriage-returns then ORS in the un-converted system must be modified first (and be unloaded so the new ORS module may be loaded) before compiling the rest of the source files, or the compiler will emit an error when attemptig to compile HexStrings in the source files.
 
 
