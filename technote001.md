@@ -1,5 +1,5 @@
 # Tech Note 001 - Newlines
-Changing OberonV5 to use NL instead of CR for terminating lines in text
+## Changing OberonV5 to use NL instead of CR for terminating lines in text
 
 In order to be able to work smoothly with existing files, an Oberon system that accepts NL to terminate lines should continue to accept CR in source texts but should emit NL when producing new line termination characters.
 
