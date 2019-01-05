@@ -26,7 +26,7 @@ To adjust OberonV5, the following files require the following changes:
     * in `PROCEDURE Directory` use     `IF (ch = "^") OR (ch = 0DX) OR (ch = 0AX) THEN`
     
    
-If the source texts (.Mod files) being introduced to an un-converted OberonV5 system already use newlines instead of carriage-returns then ORS in the un-converted system must be modified first (and be unloaded so the new ORS module may be loaded) before compiling the rest of the source files, or the compiler will emit an error when attemptig to compile HexStrings in the source files.
+If the source texts (.Mod files) being introduced to an un-converted OberonV5 system already use newlines instead of carriage-returns and ORS is from an older, more restrictive version then ORS in the un-converted system must be modified first (and be unloaded so the new ORS module may be loaded) before compiling the rest of the source files, or the compiler will emit an error when attemptig to compile HexStrings in the source files.
 
 Aside from ORS the above files do not have to be compiled in any particular order.
 
