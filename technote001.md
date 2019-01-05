@@ -5,7 +5,7 @@ In order to be able to work smoothly with existing files, an Oberon system that 
 
 To adjust OberonV5, the following files are modified:
 * ORS.Mod 
-    * in PROCEDURE HexString use WHILE ~R.eot & (ch <= " ") DO Texts.Read(R, ch) END ;
+    * in `PROCEDURE HexString` use WHILE ~R.eot & (ch <= " ") DO Texts.Read(R, ch) END ;
 * GraphicFrames.Mod
     * in PROCEDURE CaptionCopy use   BEGIN Texts.Write(W, 0AX);
     * in PROCEDURE NewCaption use   BEGIN Texts.Write(W, 0AX);
