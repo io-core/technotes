@@ -24,4 +24,4 @@ To adjust OberonV5, the following files are modified:
    
 If the source texts (.Mod files) being introduced to an un-converted OberonV5 system already use newlines instead of carriage-returns then ORS in the un-converted system must be modified first (and be unloaded so the new ORS module may be loaded) before compiling the rest of the source files, or the compiler will emit an error when attemptig to compile HexStrings in the source files.
 
-
+Since all of the above files are in the Outer Core of OberonV5 a new Inner Core does not have to be compiled or installed. A newline-friendly system can be produced merely by modifying and compiling the above modules and then restarting the system.
