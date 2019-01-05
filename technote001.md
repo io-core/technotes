@@ -4,8 +4,11 @@ Changing OberonV5 to use NL instead of CR for terminating lines in text
 In order to be able to work smoothly with existing files, an Oberon system that accepts NL to terminate lines should also accept CR but should emit NL when producing new line termination characters.
 
 To adjust OberonV5, the following files are modified:
-* ORS.Mod (in PROCEDURE HexString use WHILE ~R.eot & (ch <= " ") DO Texts.Read(R, ch) END ;  )
+* ORS.Mod 
+        in PROCEDURE HexString use WHILE ~R.eot & (ch <= " ") DO Texts.Read(R, ch) END ;
 * GraphicFrames.Mod
+        in PROCEDURE CaptionCopy use   BEGIN Texts.Write(W, 0AX);
+        in PROCEDURE NewCaption use   BEGIN Texts.Write(W, 0AX);
 * Input.Mod
 * Texts.Mod
 * TextFrames.Mod
