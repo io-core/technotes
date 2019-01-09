@@ -1,7 +1,6 @@
-# Tech Note 002 - PCF and Unicode fonts
-Changing OberonV5 to use PCF fonts and Unicode code points
+# Tech Note 002 - Module, Stack, Heap, and Video Memory
+### Adjusting OberonV5 memory use
 
-* From fonts to font pages
-* Loading PCF fonts
-* Unicode in texts
+* Patching the Bootloader
+* Modifying Display.Mod
 
