@@ -27,7 +27,7 @@ As the base offset for the screen has not changed, the code may still use the co
  
 ### Patching or modifying the Bootloader to provide more memory to the Oberon system
 
-Providing more module and heap memory to the RISC5 Oberon system does not require changes to any module other than Display.Mod, but does require changes to the boot loader, as it is the responsibility of the boot loader to deposit MemLim and StackOrg in memory after loading the system image.
+Providing more module and heap memory to the RISC5 Oberon system does not require changes to any module other than Display.Mod, but does require changes to the boot loader, as it is the responsibility of the boot loader to deposit the MemLim and StackOrg values in memory after loading the system image.
 
 An Oberon environment with significantly different hardware can be expected to have a custom boot loader for loading Oberon on that hardware That boot loader will place the appropriate MemLim and StackOrg values in memory addresses 12 and 24 respectively.
 
