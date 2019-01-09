@@ -31,7 +31,7 @@ Providing more module and heap memory to the RISC5 Oberon system does not requir
 
 An Oberon environment with significantly different hardware can be expected to have a custom boot loader for loading Oberon on that hardware That boot loader will place the appropriate MemLim and StackOrg values in memory addresses 12 and 24 respectively.
 
-A RISC5 Oberon emulator where the only real difference is more memory, however, might wish to re-use the existing boot firmware image. When the bootloader is placed in emulated ROM, word offset 372 of the ROM includes the 32-bit value `6100000E` wich corresponds to `LD R1, E` and word offset 373 includes the 32-bit value `41167ef0` which corresponds to `IOR R1, 7EF0`
+A RISC5 Oberon emulator where the only real difference is more memory, however, might wish to re-use the existing boot firmware image. When the bootloader is placed in emulated ROM, word offsets 372 and 373 encode the loading of a register with memLim value that is stored to location 12 and word offset 376 encodes the loading of a register with the StackOrg value that is stored to location 24. They might be updated as follows: `ROM[372]=0x61000000+(newMLim >> 16); ROM[373]=0x41160000+(newMLim & 0x0000FFFF); ROM[372]=0x61000000+(newStackOrg >> 16);` which assumes that the lower 16 bits of newStackOrg are zero. 
 
 ### Modifying Display.Mod to account for a different base address
 
