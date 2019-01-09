@@ -18,6 +18,13 @@ OberonV5 can be modified to use more memory for the display, the heap, and for m
 
 ### Modifying Display.Mod for other screen geometries
 
+Other geometries than 1024x768 can be supported by modifying only Display.Mod (and, of course, the hardware or emulator of the Oberon RISC system.) 
+
+If the screen resolution is not constant then Display.Mod needs to acquire the geometry at run-time. Several RISC Oberon emulators use the convention of placing the width of the screen at location `base+4`, the height of the screen at location `base+8` and a constant, e.g. `53697A66H` at the base of the screen buffer memory. Display.Mod reads these values and if it finds the constant then it adopts the width and height values, otherwise it uses the default values of 1024x768.
+
+As the base offset for the screen has not changed, the code may still use the constant `E7F00` in its drawing calculations. The Display.Mod code can no longer use the constant `128` as the number of bytes that contain a row of pixels on the screen.
+ An updated Display.Mod must calculate this at initialziation time.
+ 
 ### Patching or modifying the Bootloader to provide more memory to the Oberon system
 
 ### Modifying Display.Mod to account for a different base address
