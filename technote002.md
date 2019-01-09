@@ -1,5 +1,5 @@
 # Tech Note 002 - Adjusting Module, Stack, Heap, and Video Memory
-## Adjusting OberonV5 memory use
+## Adjusting RISC5 Oberon memory use
 
 The Oberon V5 system calculates its module, stack, heap, and memory locations based on two values delivered to it via the BootLoader: 
 
@@ -29,7 +29,9 @@ As the base offset for the screen has not changed, the code may still use the co
 
 Providing more module and heap memory to the RISC5 Oberon system does not require changes to any module other than Display.Mod, but does require changes to the boot loader, as it is the responsibility of the boot loader to deposit MemLim and StackOrg in memory after loading the system image.
 
-An Oberon environment with significantly different hardware can be expected to have a custom boot loader for loading Oberon on that hardware That boot loader will place the appropriate MemLim and StackOrg values in memory addresses 12 and 24 respectively. A RISC5 Oberon emulator where the only real difference is more memory, however, might wish to re-use the existing boot firmware image.
+An Oberon environment with significantly different hardware can be expected to have a custom boot loader for loading Oberon on that hardware That boot loader will place the appropriate MemLim and StackOrg values in memory addresses 12 and 24 respectively.
+
+A RISC5 Oberon emulator where the only real difference is more memory, however, might wish to re-use the existing boot firmware image. When the bootloader is placed in emulated ROM, word offset 372 of the ROM includes the 32-bit value `6100000E` wich corresponds to `LD R1, E` and word offset 373 includes the 32-bit value `41167ef0` which corresponds to `IOR R1, 7EF0`
 
 ### Modifying Display.Mod to account for a different base address
 
