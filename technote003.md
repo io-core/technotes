@@ -1,8 +1,7 @@
-# Tech Note 003 - Large Files, Unicode Filenames, and Subdirectories
-### Modifying the Oberon file system to support large files, long unicode filenames, and subdirectories
+# Tech Note 003 - PCF and Unicode Fonts
+### Modifying the Oberon file system to support large fonts and Unicode
 
-* 1K, 4K, 2M Blocks
-* Extra levels in the Ext table
-* File Names
-* Subdirectories
+* fonts to font pages
+* pcf to font pages
+* unicode in texts
 
