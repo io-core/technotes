@@ -23,7 +23,7 @@ A RISC5 Oberon emulator where the only real difference is more memory, however, 
 
 If MemLim has changed then Display.Mod must also be changed to reflect the new display base address. The simplest way to adapt to the new base is to simply change the `base` constant in Display.Mod and recompile, as above with changed geometry. 
 
-If the Display module is expected to cope with different base addresses and the hardware or software places video memory after module and heap memory, then Display.Mod can be changed to use the `Base` variable in its calculations instead of the `base` constant. `Base` in this case can be found by adding 16 to the MemLim value found at offset 12 in memory.
+If the Display module is expected to cope with different base addresses without recompiling and the hardware or software places video memory after module and heap memory, then Display.Mod can be changed to use the `Base` variable in its calculations instead of the `base` constant. `Base` in this case can be found by adding 16 to the MemLim value found at offset 12 in memory.
 
 The code at https://raw.githubusercontent.com/io-core/io/master/core/Display.Mod uses this method.
 
