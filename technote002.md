@@ -5,7 +5,7 @@ The Oberon V5 system receives `MemLim` at memory address `12` with the value `E7
 
 Oberon can be modified to use more memory for the display, the heap, and for module space by 1) Modifying Display.Mod for other screen geometries, 2) Patching or modifying the bootloader, and 3) Modifying Display.Mod to account for a different base address. 
 
-### Modifying Display.Mod for dynamic screen geometries
+### Modifying Display.Mod for other screen geometries
 
 Other geometries than 1024x768 can be supported by modifying only Display.Mod (and, of course, the hardware or emulator of the Oberon RISC5 system.) The simplest and most direct method is to adjust the constants in Display.Mod to reflect the changed width and height and color depth and base offset of the screen. 
 
