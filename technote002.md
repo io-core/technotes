@@ -7,9 +7,9 @@ Oberon can be modified to use more memory for the display, the heap, and for mod
 
 ### Modifying Display.Mod for other screen geometries
 
-Other geometries than 1024x768 can be supported by modifying only Display.Mod (and, of course, the hardware or emulator of the Oberon RISC5 system.) The simplest and most direct method is to adjust the constants in Display.Mod to reflect the changed width and height and color depth and base offset of the screen. 
+Other geometries than 1024x768 can be supported by modifying only Display.Mod (and, of course, the hardware or emulator of the Oberon RISC5 system.) The simplest and most direct method is to adjust the constants in Display.Mod to reflect the changed width and height and color depth and base offset of the screen. (https://raw.githubusercontent.com/schierlm/OberonEmulator/master/Oberon/Display.Mod.16Colors.txt in Michael Schirl's Javascript OberonEmulator uses this method.)
 
-Alternatively, Display.Mod can be modified to take the height, width, and even color depth as parameters. One method places the width of the screen at location `base+4`, the height of the screen at location `base+8` and the constant `53697A66H` at the `base` address of the screen buffer memory (https://github.com/pdewacht/oberon-risc-emu/blob/master/Mods/Display.Mod in Peter De Wachter's oberon-risc-eu uses this method.) Other schemes might include reading hardware registers or obtaining values from the boot loader.
+Alternatively, Display.Mod can be modified to take the height, width, and even color depth as parameters. One method places the width of the screen at location `base+4`, the height of the screen at location `base+8` and the constant `53697A66H` at the `base` address of the screen buffer memory (https://raw.githubusercontent.com/pdewacht/oberon-risc-emu/master/Mods/Display.Mod in Peter De Wachter's oberon-risc-eu uses this method.) Other schemes might include reading hardware registers or obtaining values from the boot loader.
 
 ### Patching or modifying the Bootloader to provide more memory to the Oberon system
 
