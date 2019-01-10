@@ -15,7 +15,7 @@ Alternatively, Display.Mod can be modified to take the height, width, and even c
 
 Providing more module and heap memory to the RISC5 Oberon system does not require changes to any module other than Display.Mod, but does require changes to the boot loader, as it is the responsibility of the boot loader to deposit the MemLim and StackOrg values in memory after loading the system image.
 
-An Oberon environment with significantly different hardware can be expected to have a custom boot loader for loading Oberon on that hardware That boot loader will place the appropriate MemLim and StackOrg values in memory addresses 12 and 24 respectively.
+An Oberon environment with significantly different hardware can be expected to have a custom boot loader for loading Oberon on that hardware. Such a boot loader would determine the appropriate MemLim and StackOrg values and place them in memory addresses 12 and 24 respectively.
 
 A RISC5 Oberon emulator where the only real difference is more memory, however, might wish to re-use the existing boot firmware image. When the bootloader is placed in emulated ROM, word offsets 372 and 373 encode the loading of a register with memLim value that is stored to location 12 and word offset 376 encodes the loading of a register with the StackOrg value that is stored to location 24. They might be updated as follows: `ROM[372]=0x61000000+(newMLim >> 16); ROM[373]=0x41160000+(newMLim & 0x0000FFFF); ROM[372]=0x61000000+(newStackOrg >> 16);` which assumes that the lower 16 bits of newStackOrg are zero. 
 
