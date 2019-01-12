@@ -3,13 +3,15 @@
 
 The Oberon V5 system receives `MemLim` at memory address `12` with the value `E7EF0H` and `stackOrg` at memory address `24` with the value `800000H` from the Boot Loader. From these two values it calculates its module, stack, and heap reserved locations. The base address of video memory is statically defined to be `E7F00H` (which happens to be equivalent to MemLim + 16) and the video geometry is statically defined using constants in `Display.Mod` to be monochrome 1024x768 with 128 bytes per 'scan line'.
 
-Oberon can be modified to use more memory for the display, the heap, and for module space by 1) Modifying Display.Mod for other screen geometries, 2) Patching or modifying the bootloader, and 3) Modifying Display.Mod to account for a different base address. 
+Oberon can be modified to use more memory for the display, the heap, and for module space by 1) Modifying Display.Mod for other screen geometries, 2) Patching or modifying the bootloader, 3) Modifying Display.Mod to account for a different base address, and 4) Modifying Kernel.Mod and Modules.Mod to adjust the stack size. 
 
 ### Modifying Display.Mod for other screen geometries
 
 Other geometries than 1024x768x1 can be supported by modifying Display.Mod (and, of course, the hardware or emulator of the Oberon RISC5 system.) The simplest and most direct method is to adjust the constants in Display.Mod to reflect the changed width and height and color depth and base offset of the screen. [Display.Mod](https://raw.githubusercontent.com/schierlm/OberonEmulator/master/Oberon/Display.Mod.16Colors.txt) in Michael Schierl's Javascript [OberonEmulator](http://schierlm.github.io/OberonEmulator/emu.html?image=ColorDiskImage&width=800&height=400) uses this method but also adjusts MemLim to allocate more ram to the screen as per the next section.
 
 Alternatively, Display.Mod can be modified to take the height, width, and even color depth as parameters. One method places the width of the screen at location `base+4`, the height of the screen at location `base+8` and the constant `53697A66H` at the `base` address of the screen buffer memory. [Display.Mod](https://raw.githubusercontent.com/pdewacht/oberon-risc-emu/master/Mods/Display.Mod) in Peter De Wachter's [oberon-risc-emu](https://github.com/pdewacht/oberon-risc-emu) uses this method. Other schemes might include reading hardware registers or obtaining values from the boot loader.
+
+The original Oberon RISC5 system had only 1MB and so the following constraints must be satisfied for a system where only the video geometry is changed:  `physMem = 100000H (* 1MB *); base := physMem - 256 - LINELEN * screenH; MemLim := base - 16` (`LINELEN` is screenW / 8, MemLim must end up being `E7EF0` if the boot loader remains unmodified.)
 
 ### Patching or modifying the Bootloader to provide more memory to the Oberon system
 
@@ -25,3 +27,6 @@ If MemLim has changed then Display.Mod must also be changed to reflect the new d
 
 If the Display module is expected to cope with different base addresses without further recompiling, then Display.Mod can be changed to use a variable in its calculations instead of the `base` constant. The value for the variable can be delivered to Display.Mod as with the geometry ([Display.Mod](https://raw.githubusercontent.com/schierlm/oberon-risc-emu-enhanced/master/Mods/Display.Mod) in oberon-risc-emu-enhanced uses this method), or the base of video can be expected to be found just after the memLim value communicated by the boot loader, as in the io Risc EMulator (REM) [Display.Mod](https://raw.githubusercontent.com/io-core/io/master/core/Display.Mod) which uses this method.
 
+### Modifying Kernel.Mod and Modules.Mod to adjust the stack size
+
+The Oberon files Kernel.Mod and Modules.Mod define the stack to be a fixed 8000H (32k) located just below StackOrg. Patching or recompiling the boot loader to adjust the memory provided to Oberon does not adjust the stack size, only the location. Oberon can be given a larger stack by modifying Kernel.Mod and Modules.Mod with updated values which may be constant or may be calculated at boot time, such as `stackSize := 8000H * (stackOrg >>19)` which would provide, for example, twice the standard stack size when twice the standard memory is available.  The stackSize must be changed consistently at both locations or Modules could import the value from Kernel (e.g. Kernel.stackSize.)
