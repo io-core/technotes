@@ -3,7 +3,11 @@
 
 The Oberon V5 system receives `MemLim` at memory address `12` with the value `E7EF0H` and `stackOrg` at memory address `24` with the value `800000H` from the Boot Loader. From these two values it calculates its module, stack, and heap reserved locations. The base address of video memory is statically defined to be `E7F00H` (which happens to be equivalent to MemLim + 16) and the video geometry is statically defined using constants in `Display.Mod` to be monochrome 1024x768 with 128 bytes per 'scan line'.
 
-Oberon can be modified to use more memory for the display, the heap, and for module space by 1) Modifying Display.Mod for other screen geometries, 2) Patching or modifying the bootloader, 3) Modifying Display.Mod to account for a different base address, and 4) Modifying Kernel.Mod and Modules.Mod to adjust the stack size. 
+Oberon can be modified to use more memory for the display, the heap, and for module space by 1) Modifying Display.Mod for other screen geometries, 2) Patching or modifying the bootloader, 3) Modifying Display.Mod to account for a different base address, and 4) Modifying Kernel.Mod and Modules.Mod to adjust the stack size.
+
+Here's a diagram of the memory layout in Oberon V5 (note that address zero is at the top of the diagram):
+
+<img src="https://github.com/io-core/technotes/raw/master/OberonMemoryLayout.png">
 
 ### Modifying Display.Mod for other screen geometries
 
