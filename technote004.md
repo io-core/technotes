@@ -20,3 +20,7 @@ Filedir in Project Oberon allocates 32 bytes for the file name and two 32-bit se
 * Subdirectories
 
 FileDir can be modified to allow a file in a directory to be the root of another directory, thereby implementing subdirectories. Accessing files within subdirectories may require adjustment to other modules that operate on files however as the assumption that all files are in one directory will no longer be valid.
+
+### Adopting 4k sectors
+
+More detail to go here...
