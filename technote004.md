@@ -4,10 +4,12 @@
 * Block Size
 
 The Project Oberon FileDir module operates on 1024 byte (1K) blocks, with the following limits:
+
     * disk size - 141.2 GiB  ((2^32)/29) x 1k sectors
     * file size - 3 MiB (64+(12*256)) x 1k sectors
 
 With FileDir and Files adjusted for 4k sectors and using 64-bit values as discussed below, the Oberon file system may address:
+
     * disk size - 2 ZiB  ((2^64)/29) x 4k sectors
     * file size - 16TiB  (64+(12*512)+(16*512*512)+(16*512*512*512)) x 4k sectors
 
