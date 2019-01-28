@@ -1,7 +1,10 @@
 # Tech Note 003 - PCF and Unicode Fonts
 ## Modifying the Oberon file system to support large fonts and Unicode
 
-Adapting Oberon to use Unicode for text requires changing the font subsystem so that can handle large fonts, a source of fonts with good coverage of the Unicode space, and changing the text subsystem to handle the Unicode code points which may span several bytes in a text and which can have ordinal values that are sixteen bits in size or larger.
+Adapting Oberon to use Unicode for text requires: 
+* changing the font subsystem so that can handle large fonts
+* a source of fonts with good coverage of the Unicode space
+* changing the text subsystem to handle the Unicode code points which may span several bytes in a text and which can have ordinal values that are sixteen bits in size or larger.
 
 ### fonts to font chunks
 
