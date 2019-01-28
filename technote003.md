@@ -11,8 +11,7 @@ The Font structure could instead maintain a list of 'chunks' of glyph data, each
 
 The character size (e.g. 8, 16, or 32 bits) is exported, and changing it to support unicode (16 bits for each code plane, of which there are 16 so far) does require recompilation of all importing modules, which includes most of the Outer Core of Oberon.
 
-'''
-  TYPE
+`  TYPE
     Font* = POINTER TO FontDesc;
     Chunk = POINTER TO ChunkDesc;
 
@@ -45,11 +44,7 @@ BEGIN
   SYSTEM.GET(pa-3, dxb); SYSTEM.GET(pa-2, xb); SYSTEM.GET(pa-1, yb); SYSTEM.GET(pa, wb); SYSTEM.GET(pa+1, hb);
   dx := dxb; x := xb; y := yb; w := wb; h := hb;
   IF yb < 128 THEN y := yb ELSE y := yb - 256 END
-END GetUniPat;
-  
-    
-    
-'''
+END GetUniPat;`
 
 ### pcf to font chunks
 
