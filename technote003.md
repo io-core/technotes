@@ -21,7 +21,7 @@ The following structure separates the font information from the codepoint and ra
       name*: ARRAY 32 OF CHAR;
       height*, minX*, maxX*, minY*, maxY*: INTEGER;
       next*: Font;
-      T1: ARRAY 16 OF INTEGER;
+      T1: ARRAY 48 OF INTEGER;
       block: RasterBlock;
     END;
 
@@ -32,6 +32,13 @@ The following structure separates the font information from the codepoint and ra
     END;
 
 ```
+If a raster block contains data for 64 codepoints, and an indirection table refers to 64 raster blocks, then a `T1` array of 16 pointers to indirection tables can cover the 65536 codepoints of the Basic Multilingual Plane of Unicode. Unicode defines 17 planes so far however, although planes 3-13 don't have any characters assigned yet, plane 14 currently contains non-graphical characters, and planes 15 and 16 are private-use planes. If Unicode use in Oberon is limited to planes 0-2 then a `T1` array of 48 pointers can refer to all of the graphical characters defined in Unicode 11.0
+
+Most fonts will contain glyphs for only a subset of the Unicode codepoints. When a font does contain glyphs for a large number of codepoints, few of those codepoints will actually be displayed at any one time.
+
+To find the raster pattern for a codepoint the system first examines __font__`.T1[codepoint DIV 1000H]` which will either contain a pointer to a range of raster data or the value `0` which means the font does not contain that range of codepoints and a default pattern is returned, or the value `1` indicating that the raster block has not been loaded yet, which triggers an attempt to load the raster data from the font file in order to satisfy the request for the codepont raster data. 
+
+ 
 
 The character size (e.g. 8, 16, or 32 bits) is exported, and changing it to support unicode (16 bits for each code plane, of which there are 16 so far) does require recompilation of all importing modules, which includes most of the Outer Core of Oberon.
 
