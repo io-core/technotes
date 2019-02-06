@@ -40,10 +40,20 @@ To find the raster pattern for a codepoint the system first examines `<font>.T1[
 
 When not zero or one, `pa` is a pointer to a range of 64 values (base of `pa` indexed by `codepoint DIV 40H MOD 40H`) that also can be `0`, `1`, or a valid pointer `pb` to a raster block containing data for 64 codepoints. In this case zero results in the default pattern, one causes the loading of raster data for this range of 64 codepoints, or `pb` is dereferenced to obtain the range of raster data.
 
-
-
-
-
+Finally, `pb` indexed by `codepoint MOD 40H` results in `patadr` which points three bytes into a multi-byte structure containing byte values of dx, x, y, w, and h, followed by the bitmap pattern to be displayed for that codepoint. 
+ 
+```
+                                                                        -3 [  dx ]
+                                                                        -2 [  x  ]
+T1:  0 [ ptr ]  pa: --->  0 [  1  ]                                     -1 [  y  ]
+     1 [  1  ]            1 [ ptr ]  pb: ---> 0 [ ptr ] patadr: ------>  0 [  w  ]
+     2 [  0  ]            2 [  1  ]           1 [  1  ]                  1 [  h  ]
+      ...                  ...                2 [  1  ]         2 to h*w/8 [ bits ]
+    48 [  0  ]           64 [  0  ]            ...
+                                             64 [  1  ]
+    
+    
+ ```   
 The character size (e.g. 8, 16, or 32 bits) is exported, and changing it to support unicode (16 bits for each code plane, of which there are 16 so far) does require recompilation of all importing modules, which includes most of the Outer Core of Oberon.
 
 
