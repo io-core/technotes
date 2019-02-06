@@ -10,9 +10,9 @@ Adapting Oberon to use Unicode for text requires:
 
 Classic Oberon fonts are limited to a maximum of 128 characters and the in-memory structure keeps the glyph metrics and bitmaps in an array of memory contiguous with the font metadata. This is fine for small raster fonts. Unicode fonts may be larger than available memory in a risc system however, and most character data will not be accessed.
 
-Rather than loading the whole font into memory, the Font structure could instead maintain a list of raster blocks, each containing a subset of glyph data. Only blocks that contain raster data of actually displayed characters occupy space in the heap.
+Rather than loading the whole font into memory at one time, the Font structure may be constructed instead to intitially load only basic font information (name, general dimensions) and then load ranges of specific character (codepoint) data when a codepoint within a range is requested.
 
-The following structure maintains a double indirection to codepoint data through the T1 array of 16 references to references to the bitmaps.
+The following structure separates the font information from the codepoint and raster data. Upon initialization the T1 array is full of zeros and there are no raster blocks (`block` is `NIL`.)
 
 ```  
   TYPE Font* = POINTER TO FontDesc;
