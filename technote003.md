@@ -1,5 +1,5 @@
 # Tech Note 003 - PCF and Unicode Fonts
-## Modifying the Oberon file system to support large fonts and Unicode Glyphs
+## Modifying Oberon to support large fonts and Unicode Glyphs
 
 Adapting Oberon to use Unicode for text requires: 
 * changing the font subsystem so that can handle large fonts
