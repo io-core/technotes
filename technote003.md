@@ -12,7 +12,9 @@ Classic Oberon fonts are limited to a maximum of 128 characters and the in-memor
 
 Rather than loading the whole font into memory at one time, the Font structure may be constructed instead to intitially load only basic font information (name, general dimensions) and then load ranges of specific character (codepoint) data when a codepoint within a range is requested.
 
-The following structure separates the font information from the codepoint and raster data. Upon initialization the T1 array is full of zeros and there are no raster blocks (`block` is `NIL`.)
+Michael Schierl has provided some [patches](https://github.com/schierlm/OberonEmulator/blob/master/ProposedPatches/use-utf8-charset.patch) to Fonts.Mod for on-demand loading of font data, and also to other core modules for using Unicode code points in Oberon text.
+
+The following structure from Michael's patches separates the font information from the codepoint and raster data. Upon initialization the T1 array is full of zeros and there are no raster blocks (`block` is `NIL`.)
 
 ```  
   TYPE Font* = POINTER TO FontDesc;
