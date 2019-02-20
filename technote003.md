@@ -1,5 +1,5 @@
 # Tech Note 003 - PCF and Unicode Fonts
-## Modifying the Oberon file system to support large fonts and Unicode
+## Modifying the Oberon file system to support large fonts and Unicode Glyphs
 
 Adapting Oberon to use Unicode for text requires: 
 * changing the font subsystem so that can handle large fonts
@@ -58,7 +58,7 @@ T1:  0 [ ptr ]  pa: --->  0 [  1  ]                                     -1 [  y 
     
     
  ```   
-By changing the exported FontDesc record and changing the pattern retrieval procedure (from GetPat to GetUniPat) in Fonts.Mod, the symbol file for the module also changes. Because the symbol file changes, any module that imports Fonts.Mod must also be recompiled before being used in a new system using the updated Fonts module. Essentially, all of the outer core must be recompiled before rebooting the Oberon system. In addition, any references to GetPat in other modules must be updated to GetUniPat or compilation will fail. Further changes to importing modules are described below in the Unicode in Texts section.
+By changing the exported FontDesc record and changing the pattern retrieval procedure (from GetPat to GetUniPat) in Fonts.Mod, the symbol file for the module also changes. Because the symbol file changes, any module that imports Fonts.Mod must also be recompiled before being used in a new system using the updated Fonts module. Essentially, all of the outer core must be recompiled before rebooting the Oberon system. In addition, any references to GetPat in other modules must be updated to GetUniPat or compilation will fail. Further changes to importing modules are described below in the Unicode Glyphs in Texts section.
 
 The following commands in the Oberon system will recompile the Fonts module and dependent Oberon 'Outer Core' Modules:
 
@@ -72,8 +72,8 @@ ORP.Compile Edit.Mod/s Tools.Mod/s ORTool.Mod/s ~
 ORP.Compile Draw.Mod/s ~
 ```
 
-### pcf to raster blocks chunks
+### pcf to raster blocks
 
 
-### Unicode in Texts
+### Unicode Glyphs in Texts
 
