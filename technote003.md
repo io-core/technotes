@@ -40,7 +40,9 @@ Most fonts will contain glyphs for only a subset of the Unicode codepoints. When
 
 To find the raster pattern for a codepoint the system first examines `<font>.T1[codepoint DIV 1000H]` which will either contain a pointer `pa` to an intermediate structure representing 4096 codepoints or the value `0` which means the font does not contain that range of codepoints and a default pattern is returned, or the value `1` indicating that data for that range has not been loaded yet, which triggers an attempt to load raster data from the font file in order to satisfy the request. 
 
-When not zero or one, `pa` is a pointer to a range of 64 values (base of `pa` indexed by `codepoint DIV 40H MOD 40H`) that also can be `0`, `1`, or a valid pointer to a raster block containing data for 64 codepoints. If it is a valid pointer then `pa` receives that pointer for further dereferencing.  With this new value, `pa` of `0` results in the default pattern, `1` causes the loading of raster data for this range of 64 codepoints, or `pa` is again dereferenced to obtain the range of raster data.
+When not `0` or `1`, `pa` is a pointer to a range of 64 values (base of `pa` indexed by `codepoint DIV 40H MOD 40H`) that also can be `0`, `1`, or a valid pointer to a raster block containing data for 64 codepoints. 
+
+If a valid pointer then `pa` receives that pointer for further dereferencing.  With this new value, `pa` of `0` results in the default pattern, `1` causes the loading of raster data for this range of 64 codepoints and then dereferencing is retried, or `pa` is further dereferenced to obtain the range of raster data.
 
 Finally, `pa` indexed by `codepoint MOD 40H` results in `patadr` which points three bytes into a multi-byte structure containing byte values of dx, x, y, w, and h, followed by the bitmap pattern to be displayed for that codepoint. 
  
@@ -56,14 +58,22 @@ T1:  0 [ ptr ]  pa: --->  0 [  1  ]                                     -1 [  y 
     
     
  ```   
-Changing the exported FontDesc record and changing the exported GetPat procedure to GetUniPat in Fonts.Mod changes the symbol file for the module, 
+By changing the exported FontDesc record and changing the pattern retrieval procedure (from GetPat to GetUniPat) in Fonts.Mod, the symbol file for the module also changes. Because the symbol file changes, any module that imports Fonts.Mod must also be recompiled before being used in a new system using the updated Fonts module. Essentially, all of the outer core must be recompiled before rebooting the Oberon system. In addition, any references to GetPat in other modules must be updated to GetUniPat or compilation will fail. Further changes to importing modules are described below in the Unicode in Texts section.
 
+The following commands in the Oberon system will recompile the Fonts module and dependent Oberon 'Outer Core' Modules:
 
-The character size (e.g. 8, 16, or 32 bits) is exported, and changing it to support unicode (16 bits for each code plane, of which there are 16 so far) does require recompilation of all importing modules, which includes most of the Outer Core of Oberon.
-
+```
+ORP.Compile Fonts.Mod/s Texts.Mod/s ~
+ORP.Compile Input.Mod/s Display.Mod/s Viewers.Mod/s ~
+ORP.Compile Oberon.Mod/s MenuViewers.Mod/s Graphics.Mod/s ~
+ORP.Compile GraphicFrames.Mod/s TextFrames.Mod/s System.Mod/s ~
+ORP.Compile ORS.Mod/s ORB.Mod/s ORG.Mod/s ORP.Mod/s ~
+ORP.Compile Edit.Mod/s Tools.Mod/s ORTool.Mod/s ~
+ORP.Compile Draw.Mod/s ~
+```
 
 ### pcf to raster blocks chunks
 
 
-### unicode in texts
+### Unicode in Texts
 
