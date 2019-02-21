@@ -23,6 +23,9 @@ FileDir can be modified to allow a file in a directory to be the root of another
 
 ### Adopting 4k sectors
 
+An expanded sector size requires some constants to be modified and makes space for additional features. With 64-bit sector indices (treated as two 32-bit words on a 32-bit system) an expanded Oberon volume can be up to 2 Zetabytes in size. Keeping 24 directory entries per directory page gives more space for longer filenames. A 4k file header has space for more sector table and extended sector table entries. With up to three levels of indirection via the extension tables (which can hold 512 64-bit entries), a file may grow to 16 Terabytes.
+
+
 Oberon Filesystem Feature | Original | Expanded 
 -------------------------:|:--------:|----------
 Sector Size               |  1024    |   4096
