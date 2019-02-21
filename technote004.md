@@ -23,6 +23,18 @@ FileDir can be modified to allow a file in a directory to be the root of another
 
 ### Adopting 4k sectors
 
+Oberon Filesystem Feature | Original | Expanded 
+-------------------------:|:--------:|----------
+Sector Size               |  1024    |   4096
+Sector Index              |  32 bit  | 64 bit
+Max Volume                | 141.2 GiB| 2 ZiB
+Filename Encoding         |  ascii   |  utf8
+Filename Length           | 31 bytes |  127 bytes
+Sector Table Entries      | 64       | 64
+Extension Table Entries   | 12       | 64
+Maximum File Size         | 3MB      | 16 TiB (64 + 12*512 + 16*512*512 + 16*512*512*512)
+Index Sector Entries      | 256      | 512
+
 ```
 // 32-bit oberon file system  141.2 GiB Max Volume          // 64-bit oberon filesystem   2 ZiB Max Volume
 const RFS_FnLength    = 32                                  // 127 + a zero byte = 128
