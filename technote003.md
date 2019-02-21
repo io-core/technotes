@@ -72,7 +72,7 @@ ORP.Compile Edit.Mod/s Tools.Mod/s ORTool.Mod/s ~
 ORP.Compile Draw.Mod/s ~
 ```
 
-### pcf to raster blocks
+### Pcf to Raster Blocks
 
 While Oberon font files contiguously store glyph metadata and glyph bitmaps, PCF font files keep them in separate tables. In addition, the PCF format stores the bitmap data bit-reversed from the Oberon font format.
 
@@ -80,3 +80,8 @@ A modified [Fonts.Mod](https://raw.githubusercontent.com/io-core/io/master/core/
 
 ### Unicode Glyphs in Texts
 
+Displaying Unicode text requires further changes to modules originally written to expect 7-bit character data. By replacing `c*: CHAR` with `codepoint*: INTEGER;` in the exported record definition of `scanner` in `Texts.Mod`, everything in Oberon that uses the scanner functionality is required to adapt to Unicode in order to function. Since UTF8 Unicode codepoints span a variable number of bytes, a `UnicodeWidth` procedure calculates the byte width of a codepoint, the `Pos` function is updated to adapt to the variable width of codepoints, and additional procedures `WriteUnicode`, `ReadUnicode`, and `ReadUnicodeRest` convert 32-bit codepoint values to and from UTF8 encoded byte sequences.
+
+`Edit.Mod` gains an `InsertUnicode` function, the `DeleteChar` function in `GraphicFrames.Mod` is adapted to variable-length codepoints. The remainder of the changes primarily consist of changing `GetPat` to `GetUniPat`, changing comparisons of `c `(type `CHAR`) to comparisons of `codepoint` (type `INTEGER`), making calls to `Texts.ReadUnicode` instead of `Texts.Read` (and likewise for `Write`). Changes are required in Draw.Mod, Edit.Mod, Fonts.Mod, GraphicFrames.Mod, Graphics.Mod, Input.Mod, Net.Mod, Oberon.Mod, ORP.Mod, System.Mod, and TextFrames.Mod. 
+
+The above changes merely allow the text subsystem of a modified Oberon to display more graphical characters than the original system. More changes will be required to encompass the full Unicode specification, including e.g. combining characters, line breaking, right-to-left text, etc.
