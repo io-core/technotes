@@ -52,7 +52,7 @@ Finally, `pa` indexed by `codepoint MOD 40H` results in `patadr` which points th
 T1:  0 [ ptr ]  pa: --->  0 [  1  ]                                     -1 [  y  ]
      1 [  1  ]            1 [ ptr ]  pa: ---> 0 [ ptr ] patadr: ------>  0 [  w  ]
      2 [  0  ]            2 [  1  ]           1 [  1  ]                  1 [  h  ]
-      ...                  ...                2 [  1  ]         2 to h*w/8 [ bits ]
+      ...                  ...                2 [  1  ]     2 to (h*w/8)+2 [ bits ]
     48 [  0  ]           64 [  0  ]            ...
                                              64 [  1  ]
     
