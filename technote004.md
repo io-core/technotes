@@ -23,4 +23,22 @@ FileDir can be modified to allow a file in a directory to be the root of another
 
 ### Adopting 4k sectors
 
+```
+// 32-bit oberon file system  141.2 GiB Max Volume          // 64-bit oberon filesystem   2 ZiB Max Volume
+const RFS_FnLength    = 32                                  // 127 + a zero byte = 128
+const RFS_SecTabSize  = 64                                  // 64 -- 64-bit integers mod 29
+const RFS_ExTabSize   = 12  //64+12*256 = 3MB max file size // 64 + 12*512 + 16*512*512 + 16*512*512*512 = 16 TiB max file size
+const RFS_SectorSize  = 1024                                // 4096
+const RFS_IndexSize   = 256    //SectorSize / 4             // 512  -- SectorSize / 8
+const RFS_HeaderSize  = 352                                 // ??
+const RFS_DirRootAdr  = 29                                  // 29
+const RFS_DirPgSize   = 24                                  // 24
+const RFS_N = 12               //DirPgSize / 2              // 12
+const RFS_DirMark    = 0x9B1EA38D                           // 0x9B1EA38E
+const RFS_HeaderMark = 0x9BA71D86                           // 0x9BA71D87
+//  RFS_MERKLEHASH                                          // SHA256 hash of: filenames + hashes of file contents of all files in directory
+const RFS_FillerSize = 52                                   // ??
+
+```
+
 More detail to go here...
