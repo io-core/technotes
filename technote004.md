@@ -31,26 +31,16 @@ Max Volume                | 141.2 GiB| 2 ZiB
 Filename Encoding         |  ascii   |  utf8
 Filename Length           | 31 bytes |  127 bytes
 Sector Table Entries      | 64       | 64
-Extension Table Entries   | 12       | 64
-Maximum File Size         | 3MB      | 16 TiB (64 + 12*512 + 16*512*512 + 16*512*512*512)
+Single Extension Entries  | 12       | 12
+Double Extension Entries  | 0        | 16
+Triple Extension Entries  | 0        | 16
+Maximum File Size         | 3MB      | 16 TiB (64 + (12 * 512) + (16 * 512 * 512) + (16 * 512 * 512 * 512))
 Index Sector Entries      | 256      | 512
-
-```
-// 32-bit oberon file system  141.2 GiB Max Volume          // 64-bit oberon filesystem   2 ZiB Max Volume
-const RFS_FnLength    = 32                                  // 127 + a zero byte = 128
-const RFS_SecTabSize  = 64                                  // 64 -- 64-bit integers mod 29
-const RFS_ExTabSize   = 12  //64+12*256 = 3MB max file size // 64 + 12*512 + 16*512*512 + 16*512*512*512 = 16 TiB max file size
-const RFS_SectorSize  = 1024                                // 4096
-const RFS_IndexSize   = 256    //SectorSize / 4             // 512  -- SectorSize / 8
-const RFS_HeaderSize  = 352                                 // ??
-const RFS_DirRootAdr  = 29                                  // 29
-const RFS_DirPgSize   = 24                                  // 24
-const RFS_N = 12               //DirPgSize / 2              // 12
-const RFS_DirMark    = 0x9B1EA38D                           // 0x9B1EA38E
-const RFS_HeaderMark = 0x9BA71D86                           // 0x9BA71D87
-//  RFS_MERKLEHASH                                          // SHA256 hash of: filenames + hashes of file contents of all files in directory
-const RFS_FillerSize = 52                                   // ??
-
-```
+Header Size               | 352      | ?
+Root Directory Address    | 29       | 29
+Directory Entries per Page| 24       | 24
+Directory Mark            | 9B1EA38D |9B1EA38E
+File Header Mark          | 9BA71D86 |9BA71D87
+File Header FillerSize    | 52       |  ?
 
 More detail to go here...
