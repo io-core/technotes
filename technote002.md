@@ -15,7 +15,11 @@ Other geometries than 1024x768x1 can be supported by modifying Display.Mod (and,
 
 Alternatively, Display.Mod can be modified to take the height, width, and even color depth as parameters. One method places the width of the screen at location `base+4`, the height of the screen at location `base+8` and the constant `53697A66H` at the `base` address of the screen buffer memory. [Display.Mod](https://raw.githubusercontent.com/pdewacht/oberon-risc-emu/master/Mods/Display.Mod) in Peter De Wachter's [oberon-risc-emu](https://github.com/pdewacht/oberon-risc-emu) uses this method. Other schemes might include reading hardware registers or obtaining values from the boot loader.
 
-The original Oberon RISC5 system had only 1MB and so the following constraints must be satisfied for a system where only the video geometry is changed:  `physMem = 100000H (* 1MB *); base := physMem - 256 - LINELEN * screenH; MemLim := base - 16` (`LINELEN` is screenW / 8, MemLim must end up being `E7EF0` if the boot loader remains unmodified.)
+The original Oberon RISC5 system had only 1MB and so the following constraints must be satisfied for a system                board.RAM[((newMlim+16)/4)] = 0x53697A66  // magic value 'SIZE'+1
+               board.RAM[((newMlim+16)/4)] = 0x53697A66  // magic value 'SIZE'+1
+where only the video geometry is changed:  `physMem = 100000H (* 1MB *); base := physMem - 256 - LINELEN * screenH; MemLim := base - 16` (`LINELEN` is screenW / 8, MemLim must end up being `E7EF0` if the boot loader remains unmodified.)
+
+Changing the bits-per-pixel to a value other than `1` (monochrome) introduces more changes in the modules that call Display directly. For example, `white` may no longer be `1` but `15`  in a 4-bit color scheme, or `255` in 8-bit monochrome, or the three bytes `255,255,255` for 24-bit color. Additional variables such as `fgcolor` and `bgcolor` are appropriate. In io-core, [Display.Mod](https://github.com/io-core/io/blob/master/core/Display.Mod) reflects some changes needed for handling color and greyscale.
 
 ### Patching or modifying the Bootloader to provide more memory to the Oberon system
 
