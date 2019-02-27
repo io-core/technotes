@@ -6,4 +6,5 @@
 * Need something like a weak pointer
 * File system integrated
 * Cacheing records (structured content) *not* hidden from GC -- enabling automatic reclamation
+* Generalize a module's This* command
 
