@@ -5,4 +5,5 @@
 * A hash of the identifier (e.g. filename) uses a fixed amount of space and can be stored in a b-tree 
 * Need something like a weak pointer
 * File system integrated
+* Cacheing records (structured content) *not* hidden from GC -- enabling automatic reclamation
 
