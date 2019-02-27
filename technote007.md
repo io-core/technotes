@@ -1,4 +1,4 @@
-# Tech Note 007 - Cache by Hash
+# Tech Note 007 - Cache This
 ### Use a hash cache to find already loaded resources
 
 * Identical Fonts, images, sound files, etc. may be used in various different contexts which may not coordinate
