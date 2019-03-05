@@ -43,7 +43,7 @@ Oberon can be divided into logically grouped modules by functionality and depend
 Kernel   | With only Kernel.Mod, this package does not rely on any other packages.
 Files    | With Files.Mod and FileDir.Mod, this package depends on Kernel and encapsulates Oberon's storage subsystem.
 Modules  | Requiring the above two packages, this contains Modules.Mod and completes the Inner Core of Oberon.
-Oberon   | Providing Input.Mod, Display.Mod, Viewers.Mod, MenuViewers.Mod and Oberon.Mod, this package has a mutual dependency with Edit
+Oberon   | Providing Input.Mod, Display.Mod, Viewers.Mod, MenuViewers.Mod and Oberon.Mod, this package has a mutual dependency with Edit for text handling.
 Edit     | Providing Fonts.Mod, TextFrames.Mod, Texts.Mod and Edit.Mod, this package has a mutual depencency with Oberon.
 Build    | Providing the Oberon compiler and tools, Build package depends on the Oberon and Text packages.
 Draw     | Providing the line graphics and editing subsystem, this package depends on all the previous packages.
