@@ -12,7 +12,7 @@ Packaging goals:
 * Deterministic builds
 * Signatures and verification
 
-The original Project Oberon can be viewed as one [package of modules and resources](https://github.com/io-orig/System), version 5 of the complete system, which does not require any other packages:
+The original Project Oberon can be viewed as one [package of modules and resources](https://github.com/io-orig/System), version 5 (as compared to Versions 4 or 3 or Ceres or Lilith Oberon), which does not require any other packages:
 
 ```
 package [core]/System v5.0.20190404
