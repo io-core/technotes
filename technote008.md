@@ -1,5 +1,5 @@
 # Tech Note 008 - Packages
-### Packageing in Oberon with requirements and semantic versioning
+### Packageingin Oberon with requirements and semantic versioning
 
 It would be useful to have a package management system for Oberon code and artifacts that assists the programmer in handling dependencies and versions. It would be helpful if such a system were not tied to a particular distribution of Oberon but would allow a package (if conservatively coded) to be automatically obtained and integrated across implementations of the system.
 
@@ -11,6 +11,8 @@ Packaging goals:
 * Compatibility across distributions
 * Deterministic builds
 * Signatures and verification
+
+### Original Oberon
 
 The original Project Oberon can be viewed as one [package of modules and resources](https://github.com/io-orig/System), version 5 (as compared to Versions 4 or 3 or Ceres or Lilith Oberon), which does not require any other packages:
 
@@ -32,6 +34,7 @@ provides (
 	Fonts.Mod     Net.Mod            RISC.Mod
 )
  ```
+### Dividing Original Oberon into smaller packages
 
 One way to divide up the modules is into the following packages: Build, Edit, fonts, Kernel, Modules, Paint, System, Draw   Files, Oberon. The package file `System.Pkg` which, when its requirements are also fetched, encompases the original Project Oberon files:
 
@@ -64,6 +67,8 @@ provides (
 )
 
 ```
+
+### Compatibility between Distributions
 
 An Oberon application package may be compatible with both the io-core system and with the original Project Oberon 2013 system, as below:
 
