@@ -108,11 +108,11 @@ provides (
 
 Oberon needs a tool to get packages. While V5 Oberon does not have a TCP/IP stack, an external tool can perform package management. The Get tool may be used as follows:
 
-Get latest [core]/Paint
-Get specific [io-extra]/Score v1.2.3
-Get backto [io-core]/Kernel v5.0.20190404
-Get latest github.com/privaterepo/Supercool
-Get latest everything
-Get changelist
-Get versions
+* Get latest [core]/Paint
+* Get specific [io-extra]/Score v1.2.3
+* Get backto [io-core]/Kernel v5.0.20190404
+* Get latest github.com/privaterepo/Supercool
+* Get latest everything
+* Get changelist
+* Get versions
 
