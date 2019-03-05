@@ -12,21 +12,24 @@ Packaging goals:
 * Deterministic builds
 * Signatures and verification
 
-The original Project Oberon set of modules and resources (font files, etc.) can be viewed as one undifferentiated package, version 5 of the complete system, which does not require any other packages:
+The original Project Oberon can be viewed as one [package of modules and resources](https://github.com/io-orig/System), version 5 of the complete system, which does not require any other packages:
 
 ```
-package [core]/System v5.0.0
+package [core]/System v5.0.20190404
 
 requires ()
 provides (
-	Blink.Mod     FileDir.Mod        Kernel.Mod       ORC.Mod         RISC.Mod           Texts.Mod
-	BootLoad.Mod  Files.Mod          MacroTool.Mod    ORG.Mod         RS232.Mod          Tools.Mod
-	Checkers.Mod  Fonts.Mod          Math.Mod         ORP.Mod         SCC.Mod            Viewers.Mod
-	Curves.Mod    GraphicFrames.Mod  MenuViewers.Mod  ORS.Mod         Sierpinski.Mod
-	Display.Mod   Graphics.Mod       Modules.Mod      ORTool.Mod      SmallPrograms.Mod
-	Draw.Mod      GraphTool.Mod      Net.Mod          PCLink1.Mod     Stars.Mod
-	EBNF.Mod      Hilbert.Mod        Oberon.Mod       PIO.Mod         System.Mod
-	Edit.Mod      Input.Mod          ORB.Mod          Rectangles.Mod  TextFrames.Mod
+	Blink.Mod     GraphicFrames.Mod  Oberon.Mod      RS232.Mod
+	BootLoad.Mod  Graphics.Mod       ORB.Mod         SCC.Mod
+	Checkers.Mod  GraphTool.Mod      ORC.Mod         Sierpinski.Mod
+	Curves.Mod    Hilbert.Mod        ORG.Mod         SmallPrograms.Mod
+	Display.Mod   Input.Mod          ORP.Mod         Stars.Mod
+	Draw.Mod      Kernel.Mod         ORS.Mod         System.Mod
+	EBNF.Mod      MacroTool.Mod      ORTool.Mod      TextFrames.Mod
+	Edit.Mod      Math.Mod           PCLink1.Mod     Texts.Mod
+	FileDir.Mod   MenuViewers.Mod    PIO.Mod         Tools.Mod
+	Files.Mod     Modules.Mod        Rectangles.Mod  Viewers.Mod
+	Fonts.Mod     Net.Mod            RISC.Mod
 )
  ```
 
