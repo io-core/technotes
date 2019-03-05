@@ -51,6 +51,10 @@ System   | With the previous packages, this rounds out the classic Oberon user e
 
 The package file `System.Pkg` which, when its requirements are also fetched, encompases the original Project Oberon files. The minor number has been bumped from 0 to 1 for some required packages because of changes to support Unicode fonts, other screen geometries, etc. but the required Kernel remains unchanged from Original Oberon in this example. 
 
+### Pkg File Format
+
+The Pkg file gives a package name and version number, and lists the other packages that this package directly relies on. Those packages may require other packages as well. The package also lists the modules and other resources provided by the package. Using the System package as an example:
+
 ```
 package [core]/System v5.1.0
 
