@@ -49,7 +49,7 @@ Build    | Providing the Oberon compiler and tools, Build package depends on the
 Draw     | Providing the line graphics and editing subsystem, this package depends directoy on Edit, Oberon, Modules, and Files.
 System   | With the previous packages, this rounds out the classic Oberon user experience.
 
-The package file `System.Pkg` which, when its requirements are also fetched, encompases the original Project Oberon files:
+The package file `System.Pkg` which, when its requirements are also fetched, encompases the original Project Oberon files. The minor number has been bumped from 0 to 1 for some required packages because of changes to support Unicode fonts, other screen geometries, etc. but the required Kernel remains unchanged from Original Oberon in this example. 
 
 ```
 package [core]/System v5.1.0
@@ -61,7 +61,7 @@ requires (
         [core]/Oberon v5.1.0
         [core]/Edit v5.1.0
         [core]/Draw v5.1.0
-        [core]/Paint v1.0.0
+        [core]/Build v5.1.0
 )
 
 provides (
