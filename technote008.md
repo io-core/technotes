@@ -1,5 +1,5 @@
 # Tech Note 008 - Packages
-### Packageingin Oberon with requirements and semantic versioning
+### Packaging in Oberon with requirements and semantic versioning
 
 It would be useful to have a package management system for Oberon code and artifacts that assists the programmer in handling dependencies and versions. It would be helpful if such a system were not tied to a particular distribution of Oberon but would allow a package (if conservatively coded) to be automatically obtained and integrated across implementations of the system.
 
