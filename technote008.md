@@ -118,6 +118,7 @@ Oberon needs a tool to get packages. While V5 Oberon does not have a TCP/IP stac
 
 ### Get Environment Settings
 
+* List of package repositories
 * [core] [extra] etc. paths for default distribution sources
 * Line Ending conversion (LF <--> CRLF) for distributions keeping Original Project Oberon text format.
 * Single directory / separate directories local file deposition
