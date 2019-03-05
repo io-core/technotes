@@ -46,8 +46,7 @@ Modules  | Requiring the above two packages, this contains Modules.Mod and compl
 Oberon   | Providing Input.Mod, Display.Mod, Viewers.Mod, MenuViewers.Mod and Oberon.Mod, this package has a mutual dependency with Edit for text handling.
 Edit     | Providing Fonts.Mod, TextFrames.Mod, Texts.Mod and Edit.Mod, this package has a mutual depencency with Oberon.
 Build    | Providing the Oberon compiler and tools, Build package depends on the Oberon and Text packages.
-Draw     | Providing the line graphics and editing subsystem, this package depends on all the previous packages.
-Paint    | A raster graphics subsystem and editing subsystem, this package also depends on most of the previous packages.
+Draw     | Providing the line graphics and editing subsystem, this package depends directoy on Edit, Oberon, Modules, and Files.
 System   | With the previous packages, this rounds out the classic Oberon user experience.
 
 The package file `System.Pkg` which, when its requirements are also fetched, encompases the original Project Oberon files:
