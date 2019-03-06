@@ -127,3 +127,8 @@ Oberon needs a tool to get packages. While V5 Oberon does not have a TCP/IP stac
 ### Oberon Package Index
 
 * It would be nice to have one
+
+### [core] annd [extra] as cross-distribution labels
+
+A dependency on a [core]/System package or [Extra]/Other package should be portable across distributions of the Oberon system
+
