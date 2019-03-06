@@ -123,3 +123,7 @@ Oberon needs a tool to get packages. While V5 Oberon does not have a TCP/IP stac
 * Line Ending conversion (LF <--> CRLF) for distributions keeping Original Project Oberon text format.
 * Single directory / separate directories local file deposition
 
+
+### Oberon Module Index
+
+* It would be nice to have one
