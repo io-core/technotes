@@ -124,6 +124,6 @@ Oberon needs a tool to get packages. While V5 Oberon does not have a TCP/IP stac
 * Single directory / separate directories local file deposition
 
 
-### Oberon Module Index
+### Oberon Package Index
 
 * It would be nice to have one
