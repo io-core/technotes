@@ -6,3 +6,6 @@ Technical notes for IO:
 * 004: Large Files, Unicode Filenames, and Subdirectories
 * 005: Contexts
 * 006: ELF, Signed Binaries, and Source Hashes
+* 007: Hash Cache
+* 008: Packages
+* 009: 64-bit Oberon
