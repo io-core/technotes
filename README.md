@@ -8,7 +8,4 @@ Technical notes for IO:
 * 006: ELF, Signed Binaries, and Source Hashes
 * 007: Hash Cache
 * 008: Packages
-<<<<<<< HEAD
 * 009: 64-bit Oberon
-=======
->>>>>>> f59436400302f0823b92baf221dadcf1842094e3
