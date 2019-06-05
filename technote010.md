@@ -10,6 +10,6 @@ Implementing CSP in Oberon can be obtained with:
 
 Single-core CSP (concurrency) should not require large changes in the Oberon GC and Runtime.
 
-Multi-core CSP (parallelism) with a shared heap with mutable contents will requre further adatping the Oberon GC and Runtime.
+Multi-core CSP (parallelism) might be approached by requiring any heap shared by cores to contain only immutable contents cooperatively allocated and garbage collected by the cores. This concept might be extended to cluster computing. 
 
-Requiring the heap shared by cores to contain only immutable contents may limit the changes to the GC and Runtime required for implementing a parallel Oberon.
+Oberon Module binaries may be adapted for multicore by reqiring the global variables section to be padded to page alignment and separately mapped in the thread local store of each process to the same logical address but different, unique phyisical addresses.
