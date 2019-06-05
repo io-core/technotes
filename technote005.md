@@ -6,5 +6,6 @@
 * The user may prefer system interaction texts to be displayed in a faimiliar language
 * Displayed information may adapt to the appropriate timezone
 * Resoures such as binary files, fonts, etc. may depend on the user and on the system
+* Should be integrated with Technote 011 Scriptig unifying with environment variables in scripts
 
 
