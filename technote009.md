@@ -1,5 +1,5 @@
 # Tech Note 009 - 64-bit Oberon0
-### Adapting the Oberon07 compiler and Oberon OS to 64-bits
+### Adapting the Oberon07 compiler and Oberon OS to 64-bits 
 
 * Much has been done before: https://www.modulaware.com/mdlt68.htm https://github.com/vishaps/voc
 * Same compiler source should compile on 64 and 32 bit systems
