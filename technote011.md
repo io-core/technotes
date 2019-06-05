@@ -1,4 +1,4 @@
-# Tech Note 011 - Scripting in Integrated Oberon
+# Tech Note 011 - Scripting
 ### Automating command application with scripts
 
 It is convenient to automate the application of commands.
