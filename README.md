@@ -9,5 +9,5 @@ Technical notes for IO:
 * 007: Hash Cache
 * 008: Packages
 * 009: 64-bit Oberon
-* 010: Communicating Sequential Processes in Oberon
-* 011: Scripting in Integrated Oberon
+* 010: Communicating Sequential Processes
+* 011: Scripting
