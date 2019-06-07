@@ -11,3 +11,4 @@ Technical notes for IO:
 * 009: 64-bit Oberon
 * 010: Communicating Sequential Processes
 * 011: Scripting
+* 012: Command Invocation with Shift-Enter
