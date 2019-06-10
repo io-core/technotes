@@ -15,7 +15,7 @@ The `Write` procedure can be augmented to perform similarly to the (*MM: Call*) 
       patadr, bpos, pos, lim: LONGINT;
       bx, ex, ox, dx, u, v, w, h: INTEGER;
 ```
-(* after the check for ctrl-x, cut *)
+(* after the check for ctrl-x, cut -- Unicode version *)
 ```
     ELSIF codepoint = ORD(CR) THEN (*Shift-Enter a.k.a. CR*)
       IF F.trailer.next # F.trailer THEN
@@ -27,6 +27,23 @@ The `Write` procedure can be augmented to perform similarly to the (*MM: Call*) 
         WHILE (pos # lim) & (nextCodepoint <= ORD(" ")) DO (*scan gap*)
           Fonts.GetUniPat(R.fnt, nextCodepoint, dx, u, v, w, h, patadr);
           INC(pos, Texts.UnicodeWidth(nextCodepoint)); ox := ox + dx; Texts.ReadUnicode(R, nextCodepoint)
+        END;
+      ELSE pos := 0  (*<----*)
+      END;
+      IF (pos >= 0) THEN Call(F, pos, 2 IN keysum) END
+```
+(* after the check for ctrl-x, cut -- ASCII version *)
+```
+    ELSIF ch = 13 THEN (*Shift-Enter a.k.a. CR*)
+      IF F.trailer.next # F.trailer THEN
+        LocateLine(F, F.carloc.y - F.Y, loc);
+        lim := loc.org + loc.lin.len - 1;
+        bpos := loc.org; bx := F.left;
+        pos := loc.org; ox := F.left;
+        Texts.OpenReader(R, F.text, loc.org); Texts.Read(R, nextCh);
+        WHILE (pos # lim) & (nextCh <= " ") DO (*scan gap*)
+          Fonts.GetPat(R.fnt, nextCh, dx, u, v, w, h, patadr);
+          INC(pos); ox := ox + dx; Texts.Read(R, nextCh)
         END;
       ELSE pos := 0  (*<----*)
       END;
