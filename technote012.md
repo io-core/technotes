@@ -9,13 +9,14 @@ The Handle procedure in `TextFrames.Mod` dispatches key events to the Write proc
 
 The `Write` procedure can be augmented to perform similarly to the (*MM: Call*) logic in the `Edit` procedure when receiving a Carriage Return, as follows (for Unicode capable Oberon; for regular Oberon use `ch` instead of `codepoint`, etc:)
 
-```
 (* new VARs *)
+```
       loc: Location; keysum: SET;
       patadr, bpos, pos, lim: LONGINT;
       bx, ex, ox, dx, u, v, w, h: INTEGER;
-
+```
 (* after the check for ctrl-x, cut *)
+```
     ELSIF codepoint = ORD(CR) THEN (*Shift-Enter a.k.a. CR*)
       IF F.trailer.next # F.trailer THEN
         LocateLine(F, F.carloc.y - F.Y, loc);
@@ -30,7 +31,6 @@ The `Write` procedure can be augmented to perform similarly to the (*MM: Call*) 
       ELSE pos := 0  (*<----*)
       END;
       IF (pos >= 0) THEN Call(F, pos, 2 IN keysum) END
-
 ```
 
-The above code instructs the Oberon system to call the *first* command on the same line that the caret is positioned on, when shift-enter is pressed.
+The above code as used in [TextFrames.Mod](https://github.com/io-core/Edit/blob/master/TextFrames.Mod) instructs the Oberon system to call the *first* command on the same line that the caret is positioned on, when shift-enter is pressed.
