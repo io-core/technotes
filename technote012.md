@@ -11,7 +11,7 @@ The `Write` procedure can be augmented to perform similarly to the (*MM: Call*) 
 
 (* new VARs *)
 ```
-      loc: Location; keysum: SET;
+      R: Texts.Reader; loc: Location; keysum: SET;
       patadr, bpos, pos, lim: LONGINT;
       bx, ex, ox, dx, u, v, w, h: INTEGER;
 ```
@@ -34,7 +34,7 @@ The `Write` procedure can be augmented to perform similarly to the (*MM: Call*) 
 ```
 (* after the check for ctrl-x, cut -- ASCII version *)
 ```
-    ELSIF ch = 13 THEN (*Shift-Enter a.k.a. CR*)
+    ELSIF ch = 0DX THEN (*Shift-Enter a.k.a. CR*)
       IF F.trailer.next # F.trailer THEN
         LocateLine(F, F.carloc.y - F.Y, loc);
         lim := loc.org + loc.lin.len - 1;
