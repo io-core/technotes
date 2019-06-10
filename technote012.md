@@ -33,4 +33,4 @@ The `Write` procedure can be augmented to perform similarly to the (*MM: Call*) 
 
 ```
 
-
+The above code instructs the Oberon system to call the *first* command on the same line that the caret is positioned on, when shift-enter is pressed.
