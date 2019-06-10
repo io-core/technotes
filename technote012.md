@@ -7,7 +7,7 @@ In `Input.Mod` the Enter key press is mapped to byte value 0AX which is the ASCI
 
 The Handle procedure in `TextFrames.Mod` dispatches key events to the Write procedure, including Newlines and Carriage Returns. The `Handle` procedure also dispatches mouse events to the `Edit` procedure, including middle-button-clicks for command invocation.
 
-The `Write` procedure can be augmented to perform similarly to the (*MM: Call*) logic in the `Edit` procedure when receiving a Carriage Return, as follows (for unicode capable Oberon; for regular Oberon use `ch` instead of `codepoint`, etc:
+The `Write` procedure can be augmented to perform similarly to the (*MM: Call*) logic in the `Edit` procedure when receiving a Carriage Return, as follows (for Unicode capable Oberon; for regular Oberon use `ch` instead of `codepoint`, etc:)
 
 ```
 (* new VARs *)
