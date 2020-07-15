@@ -5,13 +5,24 @@
 
 The Project Oberon FileDir module operates on 1024 byte (1K) blocks, with the following limits:
 
-    * disk size - 64MB due to 2048 word sector bitmap in Kernel.Mod, otherwise 141.2 GiB  ((2^32)/29) x 1k sectors
+    * disk size - 141.2 GiB  ((2^32)/29) x 1k sectors but in practice limited to 64MB due to 2048 word sector bitmap in Kernel.Mod
     * file size - 3 MiB (64+(12*256)) x 1k sectors
 
-With FileDir and Files adjusted for 4k sectors and using 64-bit values as discussed below, the Oberon file system may address:
+With FileDir and Files adjusted for 4k sectors, using 64-bit values the Oberon file system and with on-disk storage of bitmaps to relieve memory pressure, an extended Oberon file system may address a much larger volume:
 
     * disk size - 2 ZiB  ((2^64)/29) x 4k sectors
-    * file size - 16TiB  (64+(12*512)+(16*512*512)+(16*512*512*512)) x 4k sectors
+
+If FileDir and Files are adjusted for 4k sectors but accepting a limit of 32-bit values for sector addresses the Oberon file system may store a significant amount of data:
+
+    * disk size - 564.9 GiB  ((2^32)/29) x 4k sectors
+
+File size in Project Oberon FileDir and Files is constrained by the nunber of direct and indirect (SecTab and ExTab) entries in the FileHeader record. File sizes to the limit of the volume size could be supported by specifying that the last entry of any span of a 'sector table' would refer to the beginning of another span of 'sector table' values with one greater level of indirection.
+
+* Page Alignment
+
+Project Oberon files start with a FileHeader structure of 352 bytes, after which 672 bytes of file data may fill out the first file page. Oberon file data is therefore not aligned on disk pages with their offsets as indexed by file position, complicating the implementation of memory mapping of files (which Project Oberon does not do.) On the other hand, files with 672 bytes of data or less do not require indirection to another disk block of storage. 
+
+A more compact FileHeader structe of 64 bytes (without the filename which is already found at the Directory level) and with four (3+1) top level sector table entries allows for 64 FileHeaders per 4096-byte sector and allows byte zero of a file to reside at offset zero of the first sector. A data structure tracking used and free FileHeaders within FileHeader sectors would be required.
 
 * Name Length and encoding
 
