@@ -11,6 +11,25 @@ With FileDir and Files adjusted for 4k sectors, using 64-bit values the Oberon f
     * disk size - 2 ZiB  ((2^64)/29) x 4k sectors or 564.9 GiB with 32-bit sector values ((2^32)/29) x 4k sectors
     * file size - limited to partition size
 
+The following constants in a modified FileDir.Mod identify key aspects of an Oberon Extended File System largely based on the original Oberon File System:
+
+```
+
+  CONST FnLength*    = 47;
+        TabSize*     = 4;
+        SectorSize*  = 4096;
+        IndexSize*   = SectorSize DIV 8;
+        HeaderSize*  = 64;
+        DirRootAdr*  = 29;
+        DirPgSize*   = 63;
+        HdrPgSize*   = 63;
+        N = DirPgSize DIV 2;
+        DirMark*    = 9B1EA38EH;
+        HeaderMark* = 9BA71D87H;
+        FillerSize = 40;
+        
+```
+
 * Page Alignment
 
 Project Oberon files start with a FileHeader structure of 352 bytes, after which 672 bytes of file data may fill out the first file page. Oberon file data is therefore not aligned on disk pages with their offsets as indexed by file position, complicating the implementation of memory mapping of files (which Project Oberon does not do.) On the other hand, files with 672 bytes of data or less do not require indirection to another disk block of storage. 
