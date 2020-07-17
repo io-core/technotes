@@ -26,7 +26,7 @@ A more compact FileHeader structe of 64 bytes (without the filename which is alr
 
 * Name Length and encoding
 
-Filedir in Project Oberon allocates 32 bytes for the file name and two 32-bit sector references in each DirEntry. With page expansion to 4k, 40 byte Unicode file names, two 64-bit sector references, and a 64-bit status word will allow for 63 entries per DirPage. A status word may indicate that the space for subsequent entries are used for overflow filename space, allowing for longer filenames.
+Filedir in Project Oberon allocates 32 bytes for the file name and two 32-bit sector references in each DirEntry. With page expansion to 4k, 47 byte Unicode file names, two 64-bit sector references, and a byte for the HeaderPage index (6 bits) and pre-empting subsequent DirEntries for a longer file name (2 bits) will allow for 63 entries per DirPage and file names up to 303 bytes in length, which may be encoded UTF8.
 
 * Subdirectories
 
@@ -43,7 +43,7 @@ Sector Size               |  1024    |   4096
 Sector Index              |  32 bit  | 64 bit
 Max Volume                | 141.2 GiB| 2 ZiB
 Filename Encoding         |  ascii   |  utf8
-Filename Length           | 31 bytes |  40+ bytes
+Filename Length           | 31 bytes |  47+ bytes
 Sector Table Entries      | 64       | 3+1
 Single Extension Entries  | 12       | na
 Maximum File Size         | 3MB      | volume limit
