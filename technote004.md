@@ -36,15 +36,27 @@ It would be helpful to be able to use the same on-disk structures with either a 
 
 ```
 
-TYPE FileName*       = ARRAY FnLength OF CHAR;
-    DiskAdr*         = 
+TYPE 
+    Val64*         = 
       RECORD
-          Low* : INTEGER ;
-          High*: INTEGER ;
+          low* : INTEGER ;
+          high*: INTEGER ;
       END ;
+    DiskAdr*        = Val64 ;
+    FileName*       = ARRAY FnLength OF CHAR;
     SectorTable*    = ARRAY TabSize OF DiskAdr;
     EntryHandler*   = PROCEDURE (name: FileName; sec: DiskAdr; VAR continue: BOOLEAN);
 
+    FileHeader* =
+      RECORD 
+        kind*: INTEGER; (* File Type *)
+        perm*: INTEGER; (* File Permissions *)
+        date*: Val64; (* File Modification Timestamp *)
+        length*: Val64; 
+        owner*: INTEGER;
+        group*: INTEGER;
+        SecTab: ARRAY TabSize OF Val64;
+      END ;
 
 ```
 
