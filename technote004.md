@@ -53,7 +53,7 @@ TYPE
         length*: Val64; 
         owner*: INTEGER;
         group*: INTEGER;
-        SecTab: ARRAY TabSize OF Val64;
+        sectab: ARRAY TabSize OF Val64;
       END ;
 
       HeaderPage* =
@@ -102,4 +102,4 @@ The Oberon B-Tree of directory entries remains but with a wider fan-out due to a
 
 * Subdirectories
 
-FileDir can be modified to allow a file in a directory to be the root of another directory, thereby implementing subdirectories. Accessing files within subdirectories may require adjustment to other modules that operate on files however as the assumption that all files are in one directory will no longer be valid.
+The 'kind' field in the FileHeader record may indicate that the entry is for a sub-directory rather than a file, in which case sectab[0] will point to a DirPage rather than a file data sector. Making use of files within subdirectories will require adjustment to other modules that operate on files as the assumption that all files are in one directory will no longer be valid.
