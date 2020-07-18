@@ -27,7 +27,7 @@ The following constants in a modified FileDir.Mod identify key aspects of an Obe
         N = DirPgSize DIV 2;
         DirMark*    = 9B1EA38EH;
         HeaderMark* = 9BA71D87H;
-        FillerSize = 40;
+        FillerSize = 32;
         
 ```
 
@@ -92,7 +92,8 @@ The Oberon B-Tree of directory entries remains but with a wider fan-out due to a
 
     DirPage*  =
       RECORD mark*:  INTEGER;
-        m*:     INTEGER;
+        m*:     INTEGER;  (*count of actual directory entries*)
+        n*:     INTEGER;  (*number of DirEntry slots used*)
         zero:   INTEGER;
         p0*:    DiskAdr;  (*sec no of left descendant in directory*)
         fill:  ARRAY FillerSize OF BYTE;
