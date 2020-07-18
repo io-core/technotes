@@ -68,6 +68,15 @@ TYPE
 
 The FileHeader and HeaderPage above are a departure from the original Oberon file system which located the FileHeader at the start of a file. The above scheme allows file data to begin at offset zero of underlying disk sectors in the storage medium, simplifying the mapping of files into memory should that be desired by an operating system implemeting the file system. In the above scheme the FileHeaders are collected into HeaderPages. Also in the above system filenames are not stored in FileHeaders, allowing the implementation of symbolic and hard links, should those be desired.
 
+Another departure of the above scheme is the SecTab array of the FileHeader structure containing only four entries in which the last entry is reserved to point to an array (page) of 511 values with one greater degree of indirection and one value (the 512th) recapitulating the scheme a further degree of indirection. 255T can be addressed with three levels of indirection and the scheme can be extended indefinitely.
+
+```
+12K  with no indirection:   4096 * 3 +  
+2M   with 1 indirection:    4096 * 511 +
+1G   with 2 indirections:   4096 * 512 * 511 +
+255T with 3 indirections:   4096 * 512 * 512 * 511 +
+```
+
 The Oberon B-Tree of directory entries remains but with a wider fan-out due to a larger sector size and the potential for longer file names:
 
 ```
