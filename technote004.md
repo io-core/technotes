@@ -32,7 +32,7 @@ The following constants in a modified FileDir.Mod identify key aspects of an Obe
 
 A 64-bit filesystem in a 32-bit operating system
 
-It would be helpful to be able to use the same on-disk structures with either a 32-bit Project Oberon or a 64-bit one. This technote will describe changes to the 32-bit project oberon to use a filesystem with limits that would be relaxed or simplified in a true 64-bit implememtation. For example, disk addresses will be structs or arrays of two 32-bit values rather than simple 64-bit ones, for example:
+It would be helpful to be able to use the same on-disk structures with either a 32-bit Project Oberon or a 64-bit one. This technote will describe changes to the 32-bit project oberon to use a filesystem with limits that would be relaxed or simplified in a true 64-bit implememtation. For example, disk addresses will be structs or arrays of two 32-bit values rather than simple 64-bit ones, as shown here:
 
 ```
 
