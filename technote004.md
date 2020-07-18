@@ -91,44 +91,6 @@ The Oberon B-Tree of directory entries remains but with a wider fan-out due to a
 
 ```
 
-
-
-
-
-
-Project Oberon files start with a FileHeader structure of 352 bytes, after which 672 bytes of file data may fill out the first file page. Oberon file data is therefore not aligned on disk pages with their offsets as indexed by file position, complicating the implementation of memory mapping of files (which Project Oberon does not do.) On the other hand, files with 672 bytes of data or less do not require indirection to another disk block of storage. 
-
-A more compact FileHeader structe of 64 bytes (without the filename which is already found at the Directory level) and with four (3+1) top level sector table entries allows for 64 FileHeaders per 4096-byte sector and allows byte zero of a file to reside at offset zero of the first sector. Partially full FileHeader sectors may be linked in a chain of 'next sector' entries for efficiency in locating a free FileHeader slot.
-
-* Name Length and encoding
-
-Filedir in Project Oberon allocates 32 bytes for the file name and two 32-bit sector references in each DirEntry. With page expansion to 4k, 47 byte Unicode file names, two 64-bit sector references, and a byte for the HeaderPage index (6 bits) and pre-empting subsequent DirEntries for a longer file name (2 bits) will allow for 63 entries per DirPage and file names up to 303 bytes in length, which may be encoded UTF8.
-
 * Subdirectories
 
 FileDir can be modified to allow a file in a directory to be the root of another directory, thereby implementing subdirectories. Accessing files within subdirectories may require adjustment to other modules that operate on files however as the assumption that all files are in one directory will no longer be valid.
-
-### Adopting 4k sectors
-
-An expanded sector size requires some constants to be modified and makes space for additional features. With 64-bit sector indices (treated as two 32-bit words on a 32-bit system) an expanded Oberon volume can be up to 2 Zetabytes in size.
-
-
-Oberon Filesystem Feature | Original | Expanded 
--------------------------:|:--------:|----------
-Sector Size               |  1024    |   4096
-Sector Index              |  32 bit  | 64 bit
-Max Volume                | 141.2 GiB| 2 ZiB
-Filename Encoding         |  ascii   |  utf8
-Filename Length           | 31 bytes |  47+ bytes
-Sector Table Entries      | 64       | 3+1
-Single Extension Entries  | 12       | na
-Maximum File Size         | 3MB      | volume limit
-Index Sector Entries      | 256      | 512
-File Header Size          | 352      | 64
-Root Directory Address    | 29       | 29
-Directory Entries per Page| 24       | 63
-Directory Mark            | 9B1EA38D |9B1EA38E
-File Header Mark          | 9BA71D86 | na
-File Header FillerSize    | 52       | na
-
-More detail to go here...
