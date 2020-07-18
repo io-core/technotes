@@ -30,7 +30,23 @@ The following constants in a modified FileDir.Mod identify key aspects of an Obe
         
 ```
 
-* Page Alignment
+A 64-bit filesystem in a 32-bit operating system
+
+It would be helpful to be able to use the same on-disk structures with either a 32-bit Project Oberon or a 64-bit one. This technote will describe changes to the 32-bit project oberon to use a filesystem with limits that would be relaxed or simplified in a true 64-bit implememtation. For example, disk addresses will be structs or arrays of two 32-bit values rather than simple 64-bit ones, for example:
+
+```
+
+TYPE FileName*       = ARRAY FnLength OF CHAR;
+    DiskAdr*         = 
+      RECORD
+          Low* : INTEGER ;
+          High*: INTEGER ;
+      END ;
+    SectorTable*    = ARRAY TabSize OF DiskAdr;
+    EntryHandler*   = PROCEDURE (name: FileName; sec: DiskAdr; VAR continue: BOOLEAN);
+
+
+```
 
 Project Oberon files start with a FileHeader structure of 352 bytes, after which 672 bytes of file data may fill out the first file page. Oberon file data is therefore not aligned on disk pages with their offsets as indexed by file position, complicating the implementation of memory mapping of files (which Project Oberon does not do.) On the other hand, files with 672 bytes of data or less do not require indirection to another disk block of storage. 
 
