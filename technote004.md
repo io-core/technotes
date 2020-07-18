@@ -100,6 +100,12 @@ The Oberon B-Tree of directory entries remains but with a wider fan-out due to a
 
 ```
 
+* block allocation tables
+
+A small filesystem may not implement a block allocation table bitmap on disk and merely scan all the DirPages and FileHeaders on startup but for a very large filesystem this would cause excessive delays and would use a large amount of memory.
+
+Since a 4K sector contains 32768 bits a storage medium may be divided into chunks of 32768 sectors with the last sector in each chunk reserved for the bitmap page.
+
 * Subdirectories
 
-The 'kind' field in the FileHeader record may indicate that the entry is for a sub-directory rather than a file, in which case sectab[0] will point to a DirPage rather than a file data sector. Making use of files within subdirectories will require adjustment to other modules that operate on files as the assumption that all files are in one directory will no longer be valid.
+The 'kind' field in the FileHeader record may indicate that the entry is for a sub-directory rather than a file, in which case sectab[0] will point to a DirPage rather than a file data sector. Making use of files within subdirectories will require adjustment to other modules that operate on files as the assumption that all files are in one directory will no longer be valid. Making use of filenames longer than 32 bytes and containing Unicode characters will require similar changes.
