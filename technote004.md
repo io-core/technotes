@@ -30,7 +30,7 @@ The following constants in a modified FileDir.Mod identify key aspects of an Obe
         
 ```
 
-It would be helpful to be able to use the same on-disk structures with either a 32-bit Project Oberon or a 64-bit one. This technote will describe changes to the 32-bit project oberon to use a filesystem with limits that would be relaxed or simplified in a true 64-bit implememtation. For example, disk addresses will be structs or arrays of two 32-bit values rather than simple 64-bit ones, as shown here:
+It would be helpful to be able to use the same on-disk structures with either a 32-bit Project Oberon or a 64-bit one. This technote will describe changes to the 32-bit project oberon to use a filesystem with limits that would be relaxed or simplified in a true 64-bit implememtation. For example, disk addresses may be records of two 32-bit values rather than simple 64-bit values, as shown here:
 
 ```
 
@@ -38,7 +38,7 @@ TYPE
     Val64* = 
       RECORD
           low* : INTEGER ;
-          high*: INTEGER ;
+          high*: INTEGER 
       END ;
     DiskAdr*        = Val64 ;
     FileName*       = ARRAY FnLength OF CHAR;
@@ -53,7 +53,7 @@ TYPE
         length*: Val64; 
         owner*: INTEGER;
         group*: INTEGER;
-        sectab: ARRAY TabSize OF Val64;
+        sectab: ARRAY TabSize OF Val64
       END ;
 
       HeaderPage* =
@@ -62,7 +62,7 @@ TYPE
           zero*: INTEGER;
           next*: Val64;       
           fill*: ARRAY 48 OF CHAR;
-          hdr*: ARRAY HdrPgSize OF FileHeader;
+          hdr*: ARRAY HdrPgSize OF FileHeader
         END ;
 ```
 
