@@ -37,7 +37,7 @@ It would be helpful to be able to use the same on-disk structures with either a 
 ```
 
 TYPE 
-    Val64*         = 
+    Val64* = 
       RECORD
           low* : INTEGER ;
           high*: INTEGER ;
@@ -58,7 +58,18 @@ TYPE
         SecTab: ARRAY TabSize OF Val64;
       END ;
 
+      HeaderPage* =
+        RECORD
+          mark*: INTEGER;
+          zero*: INTEGER;
+          next*: Val64;       
+          fill*: ARRAY 48 OF CHAR;
+          hdr*: ARRAY HdrPgSize OF FileHeader;
+        END ;
 ```
+
+The FileHeader and HeaderPage above are a departure from the original Oberon file system which located the FileHeader at the start of a file. The above scheme allows file data to begin at offset zero of underlying disk sectors in the storage medium, simplifying the mapping of files into memory should that be desired by an operating system implemeting the file system. In the above scheme the FileHeaders are collected into HeaderPages. Also in the above system filenames are not stored in FileHeaders, allowing the implementation of symbolic and hard links, should those be desired.
+
 
 Project Oberon files start with a FileHeader structure of 352 bytes, after which 672 bytes of file data may fill out the first file page. Oberon file data is therefore not aligned on disk pages with their offsets as indexed by file position, complicating the implementation of memory mapping of files (which Project Oberon does not do.) On the other hand, files with 672 bytes of data or less do not require indirection to another disk block of storage. 
 
