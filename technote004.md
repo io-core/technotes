@@ -70,6 +70,33 @@ TYPE
 
 The FileHeader and HeaderPage above are a departure from the original Oberon file system which located the FileHeader at the start of a file. The above scheme allows file data to begin at offset zero of underlying disk sectors in the storage medium, simplifying the mapping of files into memory should that be desired by an operating system implemeting the file system. In the above scheme the FileHeaders are collected into HeaderPages. Also in the above system filenames are not stored in FileHeaders, allowing the implementation of symbolic and hard links, should those be desired.
 
+The Oberon B-Tree of directory entries remains but with a wider fan-out due to a larger sector size and the potential for longer file names:
+
+```
+
+    DirEntry* =  (*B-tree node*)
+      RECORD
+        p*:    DiskAdr;  (*sec no of descendant in directory*)
+        adr*:  DiskAdr;  (*sec no of file header*)
+        i*:    CHAR;     (*low 6 bits of I are the HeaderPage index to be used with the adr field *)
+        name*: FileName  (*top 2 bits of I are number of subsequent DirEntry slots pre-empted *)
+      END ;              (*for a longer filename for this entry for a maximum name length of 303 bytes *)
+
+    DirPage*  =
+      RECORD mark*:  INTEGER;
+        m*:     INTEGER;
+        zero:   INTEGER;
+        p0*:    DiskAdr;  (*sec no of left descendant in directory*)
+        fill:  ARRAY FillerSize OF BYTE;
+        e*:  ARRAY DirPgSize OF DirEntry
+      END ;
+
+```
+
+
+
+
+
 
 Project Oberon files start with a FileHeader structure of 352 bytes, after which 672 bytes of file data may fill out the first file page. Oberon file data is therefore not aligned on disk pages with their offsets as indexed by file position, complicating the implementation of memory mapping of files (which Project Oberon does not do.) On the other hand, files with 672 bytes of data or less do not require indirection to another disk block of storage. 
 
