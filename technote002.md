@@ -7,7 +7,7 @@ Oberon can be modified to use more memory for the display, the heap, and for mod
 
 Here's a diagram of the memory layout in Oberon V5 (note that address zero is at the top of the diagram):
 
-<img src="https://github.com/io-core/technotes/raw/master/OberonMemoryLayout.png">
+<img src="https://github.com/io-core/technotes/raw/main/OberonMemoryLayout.png">
 
 ### Modifying Display.Mod for other screen geometries
 
@@ -19,7 +19,7 @@ The original Oberon RISC5 system had only 1MB and so the following constraints m
                board.RAM[((newMlim+16)/4)] = 0x53697A66  // magic value 'SIZE'+1
 where only the video geometry is changed:  `physMem = 100000H (* 1MB *); base := physMem - 256 - LINELEN * screenH; MemLim := base - 16` (`LINELEN` is screenW / 8, MemLim must end up being `E7EF0` if the boot loader remains unmodified.)
 
-Changing the bits-per-pixel to a value other than `1` (monochrome) introduces more changes in the modules that call Display directly. For example, `white` may no longer be `1` but `15`  in a 4-bit color scheme, or `255` in 8-bit monochrome, or the three bytes `255,255,255` for 24-bit color. Additional variables such as `fgcolor` and `bgcolor` are appropriate. In io-core, [Display.Mod](https://github.com/io-core/io/blob/master/core/Display.Mod) reflects some changes needed for handling color and greyscale.
+Changing the bits-per-pixel to a value other than `1` (monochrome) introduces more changes in the modules that call Display directly. For example, `white` may no longer be `1` but `15`  in a 4-bit color scheme, or `255` in 8-bit monochrome, or the three bytes `255,255,255` for 24-bit color. Additional variables such as `fgcolor` and `bgcolor` are appropriate. In io-core, [Display.Mod](https://github.com/io-core/Oberon/blob/main/Display.Mod) reflects some changes needed for handling color and greyscale.
 
 ### Patching or modifying the Bootloader to provide more memory to the Oberon system
 
@@ -33,7 +33,7 @@ A RISC5 Oberon emulator where the only real difference is more memory, however, 
 
 If MemLim has changed then Display.Mod must also be changed to reflect the new display base address. The simplest way to adapt to the new base is to simply change the `base` constant in Display.Mod and recompile, as above with changed geometry. 
 
-If the Display module is expected to cope with different base addresses without further recompiling, then Display.Mod can be changed to use a variable in its calculations instead of the `base` constant. The value for the variable can be delivered to Display.Mod as with the geometry ([Display.Mod](https://raw.githubusercontent.com/schierlm/oberon-risc-emu-enhanced/master/Mods/Display.Mod) in oberon-risc-emu-enhanced uses this method), or the base of video can be expected to be found just after the memLim value communicated by the boot loader, as in the io Risc EMulator (REM) [Display.Mod](https://raw.githubusercontent.com/io-core/io/master/core/Display.Mod) which uses this method.
+If the Display module is expected to cope with different base addresses without further recompiling, then Display.Mod can be changed to use a variable in its calculations instead of the `base` constant. The value for the variable can be delivered to Display.Mod as with the geometry ([Display.Mod](https://raw.githubusercontent.com/schierlm/oberon-risc-emu-enhanced/master/Mods/Display.Mod) in oberon-risc-emu-enhanced uses this method), or the base of video can be expected to be found just after the memLim value communicated by the boot loader, as in the io Risc EMulator (REM) [Display.Mod](https://raw.githubusercontent.com/io-core/Oberon/main/Display.Mod) which uses this method.
 
 ### Modifying Kernel.Mod and Modules.Mod to adjust the stack size
 
