@@ -7,7 +7,7 @@ Oberon can be modified to use more memory for the display, the heap, and for mod
 
 Here's a diagram of the memory layout in Oberon V5 (note that address zero is at the top of the diagram):
 
-<img src="https://github.com/io-core/technotes/raw/main/OberonMemoryLayout.png">
+<img src="https://github.com/io-core/technotes/raw/main/images/OberonMemoryLayout.png">
 
 ### Modifying Display.Mod for other screen geometries
 
