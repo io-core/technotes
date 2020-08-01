@@ -25,7 +25,7 @@ Batch.Run
 |> MyModule.MyCommand A B C ~
 ||
 ```
-Michael's system, rather than introducing return codes, provides a way to verify the output that a previous command has written to the System Log.
+Michael's system, rather than introducing return codes, provides a way to verify the output written to the System Log by a command.
 
 A mouse (or the keyboard, if technote 12 is followed) is used to invoke the Batch command. When this input is received the TextFrames module locates the command and executes the procedure. The Oberon.Batch or Batch.Run procuedure then takes over the reading of the text and the calling of commands.
 
