@@ -70,11 +70,21 @@ In the OpenViewers procedure of System.Mod we need to allocate and open a Startu
     jobV := MenuViewers.New(menu, main, TextFrames.menuH, X, Y)
 ```
 
-And finally, as the last action in System.Mod initialization we cause the job to start:
+As the last action in System.Mod initialization we cause the job to start:
 
 (* At the end of the file, just before END System. *)
 ```
   jobM.offset := 0;
   jobV.dsc.next.handle(jobV.dsc.next,jobM);
+```
+
+Finally, a file named Startup.Job should be placed in the file system, for example:
+
+```
+Batch.Run
+|> ORP.Compile Kernel.Mod/s FileDir.Mod/s Files.Mod/s Modules.Mod/s~
+|> Batch.Collect
+|> ORP.Compile TextFrames.Mod/s Batch.Mod/s System.Mod/s ~
+||
 ```
 
