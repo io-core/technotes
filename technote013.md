@@ -33,6 +33,8 @@ It would be useful to have a "batch" text file execute on startup, periodically 
 
 Two small changes to TextFrames.Mod and three small changes to System.Mod with either of the above Batch systems will introduce automatic execution of "batch scripts" in Oberon.
 
+The changes to TextFrames.Mod change the symbol file and therefore require a recompilation of all modules that rely on TextFrames (e.g. the Outer Core.)
+
 This system adds a "Call" message to the set of messages understood by TextFrames in TextFrames.Mod:
 
 (* Between the definitions of UpdateMsg and CopyOverMsg *)
