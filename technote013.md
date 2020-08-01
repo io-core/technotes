@@ -31,10 +31,11 @@ A mouse (or the keyboard, if technote 12 is followed) is used to invoke the Batc
 
 It would be useful to have a "batch" text file execute on startup, periodically according to a schedule, or at other times automatically when conditions are met. 
 
-Two small changes to TextFrames.Mod and one small change to System.Mod, with either of the above Batch systems, introduces automatic execution of "batch scripts" in Oberon.
+Two small changes to TextFrames.Mod and three small changes to System.Mod with either of the above Batch systems will introduce automatic execution of "batch scripts" in Oberon.
 
 This system adds a "Call" message to the set of messages understood by TextFrames in TextFrames.Mod:
 
+(* Between the definitions of UpdateMsg and CopyOverMsg *)
 ```
      CallMsg* = RECORD (Display.FrameMsg)
        offset*: INTEGER
@@ -43,20 +44,23 @@ This system adds a "Call" message to the set of messages understood by TextFrame
 
 When the message is received by the Handle procedure in TextFrames.Mod, a Call is made with the offset provided by the message just as if the user had clicked on the text:
 
+(* Replacing the UpdateMsg line in Handle *)
 ```
        UpdateMsg: IF F.text = M.text THEN Update(F, M) END | 
        CallMsg: Call(F,M.offset,FALSE)
 ```
 
-In System Mod we need two new top level VARs:
+In System.Mod we need two new top level VARs:
 
+(* At the end of the VAR section at the top of the file *)
 ```
     jobV: Viewers.Viewer;
     jobM: TextFrames.CallMsg;
 ```
 
-In OpenViewers we need to allocate and open a Startup.Job viewer:
+In the OpenViewers procedure of System.Mod we need to allocate and open a Startup.Job viewer:
 
+(* Just before END OpenViewers; *)
 ```
     Oberon.AllocateSystemViewer(0, X, Y);
     menu := TextFrames.NewMenu("Startup.Job", StandardMenu);
@@ -64,8 +68,9 @@ In OpenViewers we need to allocate and open a Startup.Job viewer:
     jobV := MenuViewers.New(menu, main, TextFrames.menuH, X, Y)
 ```
 
-And finally, as the last action in System initialization we cause the job to start:
+And finally, as the last action in System.Mod initialization we cause the job to start:
 
+(* At the end of the file, just before END System. *)
 ```
   jobM.offset := 0;
   jobV.dsc.next.handle(jobV.dsc.next,jobM);
