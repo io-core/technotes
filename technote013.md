@@ -16,7 +16,7 @@ Oberon.Batch
 ```
 Andreas' system also introduces return codes for determining if a command has completed successfully. Andreas' system modifies both the Outer and Inner Core of Oberon.
 
-Michael Schierl has also introduced a batch processing system but his requires no changes to the Outer or Inner core. The syntax is slightly different:
+Michael Schierl has also introduced a ![Batch](https://github.com/schierlm/OberonEmulator/blob/master/Oberon/Batch.Mod.txt "Batch") processing system but his requires no changes to the Outer or Inner core. The syntax is slightly different:
 
 ```
 Batch.Run
