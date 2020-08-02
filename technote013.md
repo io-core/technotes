@@ -84,7 +84,29 @@ Finally, a file named Startup.Job should be placed in the file system, for examp
 Batch.Run
 |> ORP.Compile Kernel.Mod/s FileDir.Mod/s Files.Mod/s Modules.Mod/s~
 |> Batch.Collect
+|> ORP.Compile Fonts.Mod/s Texts.Mod/s Input.Mod/s Display.Mod/s ~
+|> Batch.Collect
+|> ORP.Compile Viewers.Mod/s Oberon.Mod/s ~
+|> Batch.Collect
+|> ORP.Compile MenuViewers.Mod/s Graphics.Mod/s GraphicFrames.Mod/s ~
+|> Batch.Collect
 |> ORP.Compile TextFrames.Mod/s Batch.Mod/s System.Mod/s ~
+|> Batch.Collect
+|> ORP.Compile ORS.Mod/s ORB.Mod/s ORG.Mod/s ORP.Mod/s ~
+|> Batch.Collect
+|> ORP.Compile Edit.Mod/s Tools.Mod/s ORTool.Mod/s ~
+|> Batch.Collect
+|>ORP.Compile Draw.Mod/s ~
 ||
 ```
+
+To introduce the above changes into the Oberon system as represented in the disc image downloaded from projectoberon.com you will first need to compile FileDir.Mod and Batch.Mod:
+
+```
+ORP.Compile FileDir.Mod Batch.Mod ~
+```
+
+Then if you have copied the Startup.Job script as above to the file system you can open 'System.Open Startup.Job' and click on the 'Batch.Run' at the top of the viewer.
+
+![Startup.Job Screenshot](https://github.com/io-core/Technotes/blob/main/images/StartupJob.png Startup.Job)
 
