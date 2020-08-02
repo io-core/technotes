@@ -100,13 +100,15 @@ Batch.Run
 ||
 ```
 
-To introduce the above changes into the Oberon system as represented in the disc image downloaded from projectoberon.com you will first need to compile FileDir.Mod and Batch.Mod:
+The above Startup.Job script expects the Batch.Run command to be avaliable and the Batch module imports FileDir.Mod which may not have a symbol file in a stripped version of the Oberon Disk image, so before compiling the changed TextFrames.Mod and System.Mod:
 
 ```
 ORP.Compile FileDir.Mod Batch.Mod ~
 ```
 
-Then if you have copied the Startup.Job script as above to the file system you can open 'System.Open Startup.Job' and click on the 'Batch.Run' at the top of the viewer.
+After the above command is executed the Startup.Job script can be run manually (middle-clicking on 'Batch.Run') to regenerate the rest of the Outer Core of Oberon.
+
+After the Outer Core is regenerated the system can be rebooted and the Startup.Job script should run automatically on system startup. The startup script may be modified to perform any other commands desired just by editing and saving the changes.
 
 ![Startup.Job](https://github.com/io-core/Technotes/blob/main/images/StartupJob.png "Startup.Job")
 
