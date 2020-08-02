@@ -108,5 +108,5 @@ ORP.Compile FileDir.Mod Batch.Mod ~
 
 Then if you have copied the Startup.Job script as above to the file system you can open 'System.Open Startup.Job' and click on the 'Batch.Run' at the top of the viewer.
 
-![Startup.Job Screenshot](https://github.com/io-core/Technotes/blob/main/images/StartupJob.png Startup.Job)
+![Startup.Job](https://github.com/io-core/Technotes/blob/main/images/StartupJob.png "Startup.Job")
 
