@@ -31,11 +31,11 @@ A mouse (or the keyboard, if [technote 12](https://github.com/io-core/technotes/
 
 It would be useful to have a "batch" text file execute on startup, periodically according to a schedule, or at other times automatically when conditions are met. 
 
-Two small changes to TextFrames.Mod and three small changes to System.Mod with either of the above Batch systems will introduce automatic execution of "batch scripts" in Oberon.
+Two small changes to `TextFrames.Mod` and three small changes to `System.Mod` with either of the above Batch systems will introduce automatic execution of "batch scripts" in Oberon.
 
-The changes to TextFrames.Mod change the symbol file and therefore require a recompilation of all modules that rely on TextFrames (e.g. the Outer Core.)
+The changes to `TextFrames.Mod` change the symbol file and therefore require a recompilation of all modules that rely on TextFrames (e.g. the Outer Core.)
 
-This system adds a "Call" message to the set of messages understood by TextFrames in TextFrames.Mod:
+This system adds a "Call" message to the set of messages understood by TextFrames in `TextFrames.Mod`:
 
 (* Between the definitions of UpdateMsg and CopyOverMsg *)
 ```
@@ -44,7 +44,7 @@ This system adds a "Call" message to the set of messages understood by TextFrame
      END;
 ```
 
-When the message is received by the Handle procedure in TextFrames.Mod, a Call is made with the offset provided by the message just as if the user had clicked on the text:
+When the message is received by the Handle procedure in `TextFrames.Mod`, a Call is made with the offset provided by the message just as if the user had clicked on the text:
 
 (* Replacing the UpdateMsg line in Handle *)
 ```
@@ -52,7 +52,7 @@ When the message is received by the Handle procedure in TextFrames.Mod, a Call i
        CallMsg: Call(F,M.offset,FALSE)
 ```
 
-In System.Mod we need two new top level VARs:
+In `System.Mod` we need two new top level VARs:
 
 (* At the end of the VAR section at the top of the file *)
 ```
@@ -60,7 +60,7 @@ In System.Mod we need two new top level VARs:
     jobM: TextFrames.CallMsg;
 ```
 
-In the OpenViewers procedure of System.Mod we need to allocate and open a Startup.Job viewer:
+In the `OpenViewers` procedure of `System.Mod` we need to allocate and open a Startup.Job viewer:
 
 (* Just before END OpenViewers; *)
 ```
@@ -70,7 +70,7 @@ In the OpenViewers procedure of System.Mod we need to allocate and open a Startu
     jobV := MenuViewers.New(menu, main, TextFrames.menuH, X, Y)
 ```
 
-As the last action in System.Mod initialization we cause the job to start:
+As the last action in `System.Mod` initialization we cause the job to start:
 
 (* At the end of the file, just before END System. *)
 ```
@@ -100,13 +100,13 @@ Batch.Run
 ||
 ```
 
-The above Startup.Job script expects the Batch.Run command to be avaliable and the Batch module imports FileDir.Mod which may not have a symbol file in a stripped version of the Oberon Disk image, so before compiling the changed TextFrames.Mod and System.Mod:
+The above Startup.Job script expects the `Batch.Run` command to be avaliable and the Batch module imports `FileDir.Mod` which may not have a symbol file in a stripped version of the Oberon Disk image, so before compiling the changed `TextFrames.Mod` and `System.Mod`:
 
 ```
 ORP.Compile FileDir.Mod Batch.Mod ~
 ```
 
-After the above command is executed the Startup.Job script can be run manually (middle-clicking on 'Batch.Run') to regenerate the rest of the Outer Core of Oberon.
+After the above command is executed the Startup.Job script can be run manually (middle-clicking on `Batch.Run`) to regenerate the rest of the Outer Core of Oberon.
 
 After the Outer Core is regenerated the system can be rebooted and the Startup.Job script should run automatically on system startup. The startup script may be modified to perform any other commands desired just by editing and saving the changes.
 
