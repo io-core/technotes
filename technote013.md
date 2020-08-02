@@ -5,7 +5,7 @@ A defining characteristic of Oberon is how a user may command-click on any displ
 
 Oberon users often accumulate lists of commands to perform common and repeated functions in .Tool files, which are simple Oberon texts like any other text file.
 
-Andreas Pirklbauer has introduced batch processing into Extended Oberon, allowing a user to cause a number of commands to be initiated in sequence with one click like so:
+Andreas Pirklbauer has introduced batch processing into [Extended Oberon](https://github.com/andreaspirklbauer/Oberon-extended), allowing a user to cause a number of commands to be initiated in sequence with one click like so:
 
 ```
 Oberon.Batch
@@ -16,7 +16,7 @@ Oberon.Batch
 ```
 Andreas' system also introduces return codes for determining if a command has completed successfully. Andreas' system modifies both the Outer and Inner Core of Oberon.
 
-Michael Schierl has also introduced a ![Batch](https://github.com/schierlm/OberonEmulator/blob/master/Oberon/Batch.Mod.txt "Batch") processing system but his requires no changes to the Outer or Inner core. The syntax is slightly different:
+Michael Schierl has also introduced a [Batch](https://github.com/schierlm/OberonEmulator/blob/master/Oberon/Batch.Mod.txt) processing system but his requires no changes to the Outer or Inner core. The syntax is slightly different:
 
 ```
 Batch.Run
