@@ -29,9 +29,7 @@ Michael's system, rather than introducing return codes, provides a way to verify
 
 A mouse (or the keyboard, if [technote 12](https://github.com/io-core/technotes/blob/main/technote012.md) is followed) is used to invoke the Batch command. When this input is received the TextFrames module locates the command and executes the procedure. The Oberon.Batch or Batch.Run procuedure then takes over the reading of the text and the calling of commands.
 
-It would be useful to have a "batch" text file execute on startup, periodically according to a schedule, or at other times automatically when conditions are met. 
-
-Two small changes to `TextFrames.Mod` and three small changes to `System.Mod` with either of the above Batch systems will introduce automatic execution of "batch scripts" in Oberon.
+Two small changes to `TextFrames.Mod` and three small changes to `System.Mod` with Michael's Batch system will introduce automatic execution of "batch scripts" in an otherwise non-extended Oberon.
 
 The changes to `TextFrames.Mod` change the symbol file and therefore require a recompilation of all modules that rely on TextFrames (e.g. the Outer Core.)
 
