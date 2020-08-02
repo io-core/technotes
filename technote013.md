@@ -14,9 +14,9 @@ Oberon.Batch
    MyModule.MyCommand A B C ~
    ~
 ```
-Andreas' system also introduces return codes for determining if a command has completed successfully. Andreas' system modifies both the Outer and Inner Core of Oberon.
+Andreas' system also introduces return codes for determining if a command has completed successfully. Andreas' system modifies both the Outer and Inner Core of Oberon. Andreas' system also will automatically execute the commands in a file called "System.Batch" on startup if the file exists on the disk image, fully encompassing the goal of this technote, which is to induce a booting system to execute commands from a text file on startup.
 
-Michael Schierl has also introduced a [Batch](https://github.com/schierlm/OberonEmulator/blob/master/Oberon/Batch.Mod.txt) processing system but his requires no changes to the Outer or Inner core. The syntax is slightly different:
+Alternatively, Michael Schierl has also introduced a [Batch](https://github.com/schierlm/OberonEmulator/blob/master/Oberon/Batch.Mod.txt) processing system but his requires no changes to the Outer or Inner core. The syntax is slightly different:
 
 ```
 Batch.Run
