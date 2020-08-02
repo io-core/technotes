@@ -27,7 +27,7 @@ Batch.Run
 ```
 Michael's system, rather than introducing return codes, provides a way to verify the output written to the System Log by a command.
 
-A mouse (or the keyboard, if technote 12 is followed) is used to invoke the Batch command. When this input is received the TextFrames module locates the command and executes the procedure. The Oberon.Batch or Batch.Run procuedure then takes over the reading of the text and the calling of commands.
+A mouse (or the keyboard, if [technote 12](https://github.com/io-core/technotes/blob/main/technote012.md) is followed) is used to invoke the Batch command. When this input is received the TextFrames module locates the command and executes the procedure. The Oberon.Batch or Batch.Run procuedure then takes over the reading of the text and the calling of commands.
 
 It would be useful to have a "batch" text file execute on startup, periodically according to a schedule, or at other times automatically when conditions are met. 
 
