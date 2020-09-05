@@ -74,7 +74,7 @@ ORP.Compile Draw.Mod/s ~
 
 ### Pcf to Raster Blocks
 
-While Oberon font files contiguously store glyph metadata and glyph bitmaps, PCF font files keep them in separate tables. In addition, the PCF format stores the bitmap data bit-reversed from the Oberon font format.
+While Oberon font files contiguously store glyph metadata and glyph bitmaps, PCF font files keep them in separate tables. In addition, the PCF header identifies the bitmap data for the fonts and the typical format found in .pcf font files is bit-reversed from the Oberon font format.
 
 A modified [Fonts.Mod](https://raw.githubusercontent.com/io-core/Edit/main/Fonts.Mod) loads Oberon font data or PCF font data conditionally on the format of the font as identified by the first several bytes of the file.
 
