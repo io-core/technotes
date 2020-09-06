@@ -104,6 +104,16 @@ Introducing the above functionality in the version of Oberon-2 as implemented in
       Ptrs* = {Pointer, Interface, NilTyp}; Procs* = {Proc, NoTyp};
 ```
 
+Also in ORB.Mod add a check for NIL in UpdateLinks within NewMethod:
+
+```
+    BEGIN
+     IF rec.typobj # NIL THEN
+...
+     END
+    END UpdateLinks;
+```
+
 In ORS.Mod we introduce a new keyword:
 
 ```  
@@ -152,3 +162,8 @@ With the above changes, ORP.Mod may be extended to parse INTERFACE type definiti
   END InterfaceType;
 ```
 
+In PROCEDURE Type0 add a check for ORS.interface between ORS.record and ORS.pointer:
+
+```
+    ELSIF sym = ORS.interface THEN ORS.Get(sym); InterfaceType(type, expo); Check(ORS.end, "no END");
+```
