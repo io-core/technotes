@@ -1,5 +1,5 @@
 # Tech Note 014 - Interfaces for Oberon-2
-### Implementing Interfaces for Oberon-2 type-bound procedures
+## Rationale
 
 Oberon-2 extends the Oberon programming language to support type-bound procedures. Each record with associated type-bound procedures (a.k.a. its 'methods') has a pointer to a table that is used by calling code to locate the entry points of the methods. Typical object oriented programming in Oberon-2 leverages this arrangement.
 
@@ -8,6 +8,8 @@ Type safety in Oberon-2 requires pointers to only point to a specific base type 
 It is sometimes useful to be able to refer to items that are implemented differently but which exhibit a compatible subset of behavior (i.e. have some methods with matching type signatures) but type safety should not be sacrificed for expediency. The 'go' programming language implements type-safe behavior matching via 'Interfaces' while the 'rust' programming language calls this 'dynamic traits.'
 
 Some relatively small modifications to the Oberon-2 compiler and Oberon system enable Interfaces in Oberon.
+
+## Syntax
 
 To express Interfaces in an Oberon-2 program the syntax may be extended with a new keyword 'INTERFACE' and new syntax for declaring an Interface type, for example: 
 
@@ -93,6 +95,8 @@ BEGIN
 END M.
 
 ```
+
+## Implementation
 
 Introducing the above functionality in the version of Oberon-2 as implemented in Andreas Pirklbauer's Oberon-Extended (2020) implementation starts with additions to ORB.Mod to introduce a new form value:
 
