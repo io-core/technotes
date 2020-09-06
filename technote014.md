@@ -94,4 +94,27 @@ END M.
 
 ```
 
+Introducing the above functionality in the version of Oberon-2 as implemented in Andreas Pirklbauer's Oberon-Extended (2020) implementation starts with additions to ORB.Mod to introduce a new form value:
+
+```
+    (* form values*)
+      Byte* = 1; Bool* = 2; Char* = 3; Int* = 4; Real* = 5; Set* = 6;
+      Pointer* = 7; Interface* = 8; NilTyp* = 9; NoTyp* = 10; Proc* = 11;
+      String* = 12; Array* = 13; Record* = 14; TProc* = 15;
+      Ptrs* = {Pointer, Interface, NilTyp}; Procs* = {Proc, NoTyp};
+```
+
+In ORS.Mod we introduce a new keyword:
+
+```  
+CONST IdLen* = 32;
+    NKW = 35;  (*nof keywords*)
+...
+    array* = 60; record* = 61; pointer* = 62; interface* = 63; const* = 64; type* = 65;
+    var* = 66; procedure* = 67; begin* = 68; import* = 69; module* = 70; eot = 71;
+...
+  EnterKW(procedure, "PROCEDURE");
+  EnterKW(interface, "INTERFACE");
+```
+
 
