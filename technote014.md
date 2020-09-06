@@ -14,8 +14,9 @@ To express Interfaces in an Oberon-2 program the syntax may be extended with a n
 ```
 MODULE W;
   TYPE
-       Identifier* = INTERFACE OF
+       Describer* = INTERFACE OF
             PROCEDURE What* (VAR a: ARRAY OF CHAR) ;
+            PROCEDURE String* (VAR a: ARRAY OF CHAR) ;
        END 
 END W.
 ```
@@ -39,9 +40,17 @@ MODULE T;
   BEGIN a := "integer"
   END What;
 
+  PROCEDURE ( i : I ) String* (VAR a: ARRAY OF CHAR) ;
+  BEGIN a := "1"
+  END String;
+
   PROCEDURE ( r : R ) What* (VAR a: ARRAY OF CHAR) ;
   BEGIN a := "float"
   END What;
+  
+  PROCEDURE ( r : R ) String* (VAR a: ARRAY OF CHAR) ;
+  BEGIN a := "3.14"
+  END String;
   
 END T.  
 ```
@@ -61,6 +70,10 @@ MODULE GPS;
   BEGIN a := "gps coordinate"
   END What;
 
+  PROCEDURE ( loc : LOC ) String* (VAR a: ARRAY OF CHAR) ;
+  BEGIN a := "32.7157 N, 117.1611 W"
+  END String;
+
 END GPS.  
 ```
 Separately compiled code should be able to assign an interface value to behaviorally compatible types and call the appropriate methods in a type safe manner:
@@ -70,13 +83,13 @@ MODULE M;
 IMPORT T, GPS, W;
 VAR i: T.I; r: T.R; l:GPS.LOC; 
       x: ARRAY 32 OF CHAR;
-      x: W.Identifier; 
+      x: W.Describer; 
 BEGIN
       NEW(i); NEW(r); NEW(l);
 
-      s := i;  s.What( x );  
-      s := r;  s.What( x );  
-      s := l;  s.What( x );  
+      s := i;  s.What( x ); s.String( x );  
+      s := r;  s.What( x ); s.String( x );
+      s := l;  s.What( x ); s.String( x );
 END M.
 
 ```
