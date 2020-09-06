@@ -83,13 +83,13 @@ MODULE M;
 IMPORT T, GPS, W;
 VAR i: T.I; r: T.R; l:GPS.LOC; 
       x: ARRAY 32 OF CHAR;
-      x: W.Describer; 
+      d: W.Describer; 
 BEGIN
       NEW(i); NEW(r); NEW(l);
 
-      s := i;  s.What( x ); s.String( x );  
-      s := r;  s.What( x ); s.String( x );
-      s := l;  s.What( x ); s.String( x );
+      d := i;  d.What( x ); d.String( x );  
+      d := r;  d.What( x ); d.String( x );
+      d := l;  d.What( x ); d.String( x );
 END M.
 
 ```
