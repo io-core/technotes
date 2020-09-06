@@ -116,5 +116,39 @@ CONST IdLen* = 32;
   EnterKW(procedure, "PROCEDURE");
   EnterKW(interface, "INTERFACE");
 ```
+Making the above modifications changes every symbol file of every module so the while system must be re-built and a new inner-core installed before continuing.
 
+With the above changes, ORP.Mod may be extended to parse INTERFACE type definitions (just before PROCEDURE Type0) like this:
+
+```
+  PROCEDURE InterfaceType(VAR type: ORB.Type; expo: BOOLEAN);
+    VAR obj, objr, obj0, new, bot, base, proc, redef: ORB.Object;
+      typ, tp, ftype: ORB.Type; id, procid, recid: ORS.Ident;
+      offset, off, n, parblksize: LONGINT; expo0: BOOLEAN; size: LONGINT; nofpar: INTEGER;
+  BEGIN
+    Check(ORS.of, "no OF");
+    NEW(type); type.base := NIL; type.mno := -level; type.nofpar := 0; type.len := 0; offset := 0; bot := NIL;
+    type.form := ORB.Interface; type.dsc := bot; type.size := ORG.WordSize*2; type.typobj := NIL;
+
+    WHILE sym = ORS.procedure DO
+      ORS.Get(sym); Check(ORS.ident, "no identifier"); ORS.CopyId(procid);
+      NEW(ftype); ftype.base := ORB.noType; ftype.size := ORG.WordSize; ftype.len := 0;  (*len used as heading of fixup chain of forward refs*)
+      ORB.NewMethod(type, proc, redef, procid);
+      ftype.form := ORB.TProc; proc.type := ftype; proc.val := -1;
+      ORS.Get(sym); proc.expo := expo;
+      IF expo THEN proc.exno := exno; INC(exno); 
+        procid := "@"; ORB.NewObj(obj, procid, ORB.Const); obj.name[0] := 0X; (*dummy to preserve linear order of exno*)
+        obj.type := proc.type; obj.dsc := proc; obj.exno := proc.exno; obj.expo := FALSE;
+      END ;
+      ORB.OpenScope; INC(level);  parblksize := 4;
+      recid := "@"; ORB.NewObj(obj, recid, ORB.Var);  (*insert receiver as first parameter -- as an interface, will be replaced with target*)
+      obj.type := type; obj.rdo := FALSE; obj.lev := level; obj.val := parblksize;
+      INC(parblksize, ORG.WordSize);
+      ProcedureType(ftype, parblksize); ftype.dsc := ORB.topScope.next; INC(ftype.nofpar);  (*formal parameter list*)
+      ORB.CloseScope; DEC(level);
+      proc.type:=ftype;         
+      IF sym = ORS.semicolon THEN ORS.Get(sym) ELSIF sym # ORS.end THEN ORS.Mark(" ; or END") END
+    END
+  END InterfaceType;
+```
 
