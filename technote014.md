@@ -12,12 +12,12 @@ Some relatively small modifications to the Oberon-2 compiler and Oberon system e
 To express Interfaces in an Oberon-2 program the syntax may be extended with a new keyword 'INTERFACE' and new syntax for declaring an Interface type, for example: 
 
 ```
-MODULE I;
+MODULE W;
   TYPE
        Identifier* = INTERFACE OF
             PROCEDURE What* (VAR a: ARRAY OF CHAR) ;
        END 
-END I.
+END W.
 ```
 
 Records with methods that implement an interface are not required to know of the existance of the interface beforehand:
@@ -37,27 +37,46 @@ MODULE T;
 
   PROCEDURE ( i : I ) What* (VAR a: ARRAY OF CHAR) ;
   BEGIN a := "integer"
-  END String;
+  END What;
 
   PROCEDURE ( r : R ) What* (VAR a: ARRAY OF CHAR) ;
   BEGIN a := "float"
-  END String;
+  END What;
   
 END T.  
 ```
 
+Different types in different modules may implement the same interface:
+
+```
+MODULE GPS;
+  TYPE
+       LOC* = POINTER TO LOCDesc;
+       LOCDesc* = RECORD
+            lat: INTEGER
+            long: INTEGER
+       END ;
+
+  PROCEDURE ( loc : LOC ) What* (VAR a: ARRAY OF CHAR) ;
+  BEGIN a := "gps coordinate"
+  END What;
+
+END GPS.  
+```
 Separately compiled code should be able to assign an interface value to behaviorally compatible types and call the appropriate methods in a type safe manner:
 
 ```
 MODULE M;
-VAR i: T.I; r: T.R; 
-      w: ARRAY 32 OF CHAR;
-      s: Identifier; 
+IMPORT T, GPS, W;
+VAR i: T.I; r: T.R; l:GPS.LOC; 
+      x: ARRAY 32 OF CHAR;
+      x: W.Identifier; 
 BEGIN
-      NEW(i); NEW(r);
+      NEW(i); NEW(r); NEW(l);
 
-      s := i;  s.What( w );  
-      s := r;  s.What( w );  
+      s := i;  s.What( x );  
+      s := r;  s.What( x );  
+      s := l;  s.What( x );  
 END M.
 
 ```
