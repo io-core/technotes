@@ -96,6 +96,9 @@ END M.
 
 ```
 
+The computational cost for this abstraction is paid in the assignment of a record pointer to an interface value. This is when the runtime must prepare an appropriate method table for this interface as applied to this record type (an interface method table cache may help) and raise an error if the type signatures of the methods do not match. This cost can be minimized and is not paid if interfaces are not used.
+
+
 ## Implementation
 
 Introducing the above functionality in the version of Oberon-2 as implemented in Andreas Pirklbauer's Oberon-Extended (2020) implementation starts with additions to ORB.Mod to introduce a new form value:
