@@ -174,3 +174,36 @@ In PROCEDURE Type0 add a check for ORS.interface between ORS.record and ORS.poin
 ```
     ELSIF sym = ORS.interface THEN ORS.Get(sym); InterfaceType(type, expo); Check(ORS.end, "no END");
 ```
+
+in ORP StatSequence needs to know how to store an interface: 
+
+```
+            ELSIF (x.type.form = ORB.Interface) & (y.type.form = ORB.Pointer) THEN
+              ORG.StoreInterface(x, y)
+            ELSE ORS.Mark("illegal assignment")
+```
+
+In ORG.Mod introduce the StoreInterface procedure after StoreStruct:
+
+```
+  PROCEDURE StoreInterface*(VAR x, y: Item); (* x := y *) (* TODO: Build interface table *)
+    VAR op: LONGINT;
+  BEGIN  load(y);
+    op := Str ;
+    IF x.mode = ORB.Var THEN
+      IF x.r > 0 THEN (*local*) Put2(op, y.r, SP, x.a + frame) ELSE PutPair(x.r, op, y.r, RH, x.a, 2) END
+    ELSIF x.mode = ORB.Par THEN Put2(Ldr, RH, SP, x.a + frame); Put2(op, y.r, RH, x.b);
+    ELSIF x.mode = RegI THEN Put2(op, y.r, x.r, x.a); DEC(RH);
+    ELSE ORS.Mark("bad mode in Store")
+    END ;
+    DEC(RH)
+  END StoreInterface;
+```
+
+
+In ORG.Mod the procedure StoreStruct needs a way to store to an Interface value:
+
+```
+    ELSIF x.type.form = ORB.Record THEN Put1a(Mov, RH, 0, x.type.size DIV 4)
+    ELSIF x.type.form = ORB.Interface THEN Put1a(Mov, RH, 0, x.type.size DIV 4)
+```
