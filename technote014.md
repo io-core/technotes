@@ -1,9 +1,29 @@
 # Tech Note 014 - Interfaces for Oberon-2
-### Oberon-2 type-bound procedures may be extended to support Interfaces a.k.a dynamic traits
+### Implementing Interfaces for Oberon-2 type-bound procedures
 
-Interfaces in the go programming language and dynamic traits in the rust programming language allow the programmer to factor functionality of separately compiled strongly-typed code for uniform access and composition at the cost of dynamically resolving at run-time the intersection of the procedures and functions of the interface and the procedures and functions of the record the interface resolves to.  Signatures not matching results in an error at run-time.
+Oberon-2 extends the Oberon programming language to support type-bound procedures. Each record with associated type-bound procedures (a.k.a. its 'methods') has a pointer to a table that is used by calling code to locate the entry points of the methods. Typical object oriented programming in Oberon-2 leverages this arrangement.
+
+Type safety in Oberon-2 requires pointers to only point to a specific base type or an extension of that base type of record. A pointer may not have any other type of record assigned to it even if the two base types are otherwise structurally or behaviorally compatible. 
+
+It is sometimes useful to be able to refer to items that are implemented differently but which exhibit a compatible subset of behavior (i.e. have some methods with matching type signatures) but type safety should not be sacrificed for expediency. The 'go' programming language implements type-safe behavior matching via 'Interfaces' while the 'rust' programming language calls this 'dynamic traits.'
+
+Some relatively small modifications to the Oberon-2 compiler and Oberon system enable Interfaces in Oberon.
+
+To express Interfaces in an Oberon-2 program the syntax may be extended with a new keyword 'INTERFACE' and new syntax for declaring an Interface type, for example: 
 
 ```
+MODULE I;
+  TYPE
+       Identifier* = INTERFACE OF
+            PROCEDURE What* (VAR a: ARRAY OF CHAR) ;
+       END 
+END I.
+```
+
+Records with methods that implement an interface are not required to know of the existance of the interface beforehand:
+
+```
+MODULE T;
   TYPE
        I* = POINTER TO IDesc;
        IDesc* = RECORD
@@ -15,27 +35,30 @@ Interfaces in the go programming language and dynamic traits in the rust program
             h: REAL
        END ;
 
-       Stringer* = INTERFACE OF
-            PROCEDURE String* (VAR a: ARRAY OF CHAR) ;
-       END ;
-
-  PROCEDURE ( i : I ) String* (VAR a: ARRAY OF CHAR) ;
+  PROCEDURE ( i : I ) What* (VAR a: ARRAY OF CHAR) ;
   BEGIN a := "integer"
   END String;
 
-  PROCEDURE ( r : R ) String* (VAR a: ARRAY OF CHAR) ;
+  PROCEDURE ( r : R ) What* (VAR a: ARRAY OF CHAR) ;
   BEGIN a := "float"
   END String;
+  
+END T.  
+```
 
-  PROCEDURE Test*;
-      VAR i: I; r: t: ARRAY 32 OF CHAR;
-        s: Stringer; 
-  BEGIN
+Separately compiled code should be able to assign an interface value to behaviorally compatible types and call the appropriate methods in a type safe manner:
+
+```
+MODULE M;
+VAR i: T.I; r: T.R; 
+      w: ARRAY 32 OF CHAR;
+      s: Identifier; 
+BEGIN
       NEW(i); NEW(r);
 
-      s := i;  s.String( t );  
-      s := r;  s.String( t );  
-  END Test;
+      s := i;  s.What( w );  
+      s := r;  s.What( w );  
+END M.
 
 ```
 
