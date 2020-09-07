@@ -183,6 +183,26 @@ in ORP StatSequence needs to know how to store an interface:
             ELSE ORS.Mark("illegal assignment")
 ```
 
+Also in ORP Selector needs to know how to select a method of an Interface:
+
+```
+          IF x.type.form = ORB.Pointer THEN ORG.DeRef(x); x.type := x.type.base; deref := TRUE END ;
+          IF x.type.form = ORB.Interface THEN
+            obj := ORB.thisfield(x.type); ORS.Get(sym);
+            IF obj # NIL THEN
+              IF obj.type.form = ORB.TProc THEN
+                IF sym # ORS.arrow THEN (*no super call*)
+                  CheckReceiver(obj, deref);  ORG.Method(x, obj, deref, FALSE)
+                ELSE ORS.Mark("no super")
+                END
+              ELSE ORS.Mark("not tproc")
+              END
+            ELSE ORS.Mark("undef")
+            END
+          ELSIF x.type.form = ORB.Record THEN
+
+```
+
 In ORG.Mod introduce the StoreInterface procedure after StoreStruct:
 
 ```
