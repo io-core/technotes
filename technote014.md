@@ -133,6 +133,15 @@ CONST IdLen* = 32;
   EnterKW(procedure, "PROCEDURE");
   EnterKW(interface, "INTERFACE");
 ```
+In the ModDesc definition of Modules.Mod add a field to point to symbol content for the module:
+
+```
+      data*, str*, tdx*, code*, imp*, cmd*, ent*, ptr*, pvr*, smb*: INTEGER;  (*addresses*)
+
+```
+
+
+
 Making the above modifications changes every symbol file of every module so the while system must be re-built and a new inner-core installed before continuing.
 
 With the above changes, ORP.Mod may be extended to parse INTERFACE type definitions (just before PROCEDURE Type0) like this:
