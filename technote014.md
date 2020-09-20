@@ -133,13 +133,40 @@ CONST IdLen* = 32;
   EnterKW(procedure, "PROCEDURE");
   EnterKW(interface, "INTERFACE");
 ```
-In the ModDesc definition of Modules.Mod add a field to point to symbol content for the module:
+In Modules.Mod and ORL.Mod add 4 to the DescSize to hold a reference to symbol content for a module:
+```
+  CONST versionkey = 1X; TR = 13; DescSize = 96; MnLength = 32;
 
 ```
-      data*, str*, tdx*, code*, imp*, cmd*, ent*, ptr*, pvr*, smb*: INTEGER;  (*addresses*)
+
+In the ModDesc definition of Modules.Mod and ORL.Mod add a field to point to symbol content for the module:
 
 ```
+      selected*, marked, hidden, sel: BOOLEAN;
+      smb: INTEGER
+    END ;
 
+```
+A ThisSmb procedure goes right after the ThisFile procedure:
+```
+  PROCEDURE ThisSmb(name: ARRAY OF CHAR): Files.File;
+    VAR i: INTEGER;
+      filename: ModuleName;
+  BEGIN i := 0;
+    WHILE name[i] # 0X DO filename[i] := name[i]; INC(i) END ;
+    filename[i] := "."; filename[i+1] := "s"; filename[i+2] := "m"; filename[i+3] := "b"; filename[i+4] := 0X;
+    RETURN Files.Old(filename)
+  END ThisSmb;
+```
+Add a variable to hold the length of the symbol information to PROCEDURE Load:
+```
+      smbl: INTEGER;
+```
+After checking the name for validity find and initialize the symbol information area length:
+```
+      check(name);
+      IF res = noerr THEN F := ThisSmb(name); smbl:=Files.Length(F) ELSE smbl:=0 END ;
+```
 
 
 Making the above modifications changes every symbol file of every module so the while system must be re-built and a new inner-core installed before continuing.
