@@ -143,11 +143,11 @@ In the ModDesc definition of Modules.Mod and ORL.Mod add a field to point to sym
 
 ```
       selected*, marked, hidden, sel: BOOLEAN;
-      smb: INTEGER
+      smb*: INTEGER
     END ;
 
 ```
-A ThisSmb procedure goes right after the ThisFile procedure:
+A ThisSmb procedure goes right after the ThisFile procedure in Modules.Mod and ORL.Mod:
 ```
   PROCEDURE ThisSmb(name: ARRAY OF CHAR): Files.File;
     VAR i: INTEGER;
@@ -158,7 +158,7 @@ A ThisSmb procedure goes right after the ThisFile procedure:
     RETURN Files.Old(filename)
   END ThisSmb;
 ```
-Add a variable to hold the length of the symbol information to PROCEDURE Load:
+Add a variable to hold the length of the symbol information to PROCEDURE Load in Modules.Mod and LinkOne in ORL.Mod:
 ```
       smbl: INTEGER;
 ```
@@ -167,7 +167,22 @@ After checking the name for validity find and initialize the symbol information 
       check(name);
       IF res = noerr THEN F := ThisSmb(name); smbl:=Files.Length(F) ELSE smbl:=0 END ;
 ```
-
+When allocating space for the module include the size of the symbol information. In Modules.Mod :
+```
+      IF res = noerr THEN (*search for a hole in the list allocate and link*)
+        INC(size, DescSize + smbl); mod := root;
+```
+In ORL.Mod:
+```
+      IF res = noerr THEN
+        INC(size, DescSize + smbl);
+```
+Just before the fixup of BL insert code to load the symbol data:
+```
+      IF res = noerr THEN (*load symbol data*)
+        mod.smb := p;
+      END;
+```
 
 Making the above modifications changes every symbol file of every module so the while system must be re-built and a new inner-core installed before continuing.
 
