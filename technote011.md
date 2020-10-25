@@ -1,7 +1,7 @@
 # Tech Note 011 - Scripting
 ### Automating command application with scripts
 
-It is convenient to automate the application of commands.
+It is convenient to automate the application of commands. [LIL](http://runtimeterror.com/tech/lil) shows one way of implementing a scripting language that may interface well with Oberon's text user interface, and as it has a Free Pascal impementation may be less work to adopt than other scripting language implementations.
 
 * lines of "Module.Command argument" should be supported for scripting familiar operations
 * Conditionals, variable substituion, etc. are desireable
