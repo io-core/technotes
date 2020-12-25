@@ -24,7 +24,7 @@ k,v1,v2
 package,System,v5.0.20160620
 from,github.com/io-orig,
 license,PROJECTOBERON,NW PR JG
-doc,core,all-in-oine collection of Oberon source.
+doc,core,all-in-one collection of Oberon source.
 p,System.Mod,215e86c25a1499d0ee5e63f1a1f3ce4230422f12964752155ea291b478773a08
 p,MenuViewers.Mod,c91c52dd1441f545057467b6bc3122fa0a09550a0f8d7dc40e812c43f3602b7b
 p,PIO.Mod,3a2b9d960dae5ddbbdd1ee6db7667b47670d80957eca866264940d0cd704c0cf
