@@ -25,4 +25,7 @@
 * Kernel.Mod for each platform is platform dependent and will define interrupt vectors, mmu tables, etc. as appropriate.
 * On hardware providing u-boot, Kernel.Mod may retrieve useful configuration information from a Device Tree Blob.
 * On hardware providing UEFI, Kernel.Mod may retrieve useful information from the firmware.
+* Module records are 32 bytes + 12 words = 80 bytes for 32-bit systems or 128 bytes for 64-bit systems.
+* Structures in Files.Mod and FileDir.Mod require adjustment for 64-bit integers, 4k sectors can help.
+* 4k sectors and 64-bit on-disk values can be intelligible on 32-bit systems with updated Files and FileDir modules.
 
