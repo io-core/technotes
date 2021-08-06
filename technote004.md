@@ -111,3 +111,11 @@ Since a 4K sector contains 32768 bits a storage medium may be divided into chunk
 * Subdirectories
 
 The 'kind' field in the FileHeader record may indicate that the entry is for a sub-directory rather than a file, in which case sectab[0] will point to a DirPage rather than a file data sector. Making use of files within subdirectories will require adjustment to other modules that operate on files as the assumption that all files are in one directory will no longer be valid. Making use of filenames longer than 32 bytes and containing Unicode characters will require similar changes.
+
+* Boot image
+
+The boot image in the Project Oberon file system is located at byte offset 1024 of the disk image. A 64-bit Oberon filesystem may place the boot image starting at byte offset 4096 to align with 4k sector offsets.
+
+* Small Files
+
+An optimization to regain efficient storage of small files (and reclaim trailing space in large files) is to store the last sector of files with length MOD 64 in the HeaderPages like FileHeaders
