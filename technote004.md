@@ -118,4 +118,4 @@ The boot image in the Project Oberon file system is located at byte offset 1024 
 
 * Small Files
 
-An optimization to regain efficient storage of small files (and reclaim trailing space in large files) is to store the last sector of files with length MOD 64 in the HeaderPages like FileHeaders
+An optimization to regain efficient storage of tiny files (and reclaim some trailing space in large files) is to store the last sector of files with ((file_length MOD 4096 ) <= 64) in the HeaderPages like FileHeaders
