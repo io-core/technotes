@@ -6,7 +6,7 @@ The Project Oberon FileDir module operates on 1024 byte (1K) blocks, with the fo
     * disk size - 141.2 GiB  ((2^32)/29) x 1k sectors but in practice only 64MB due to a limit in Kernel.Mod
     * file size - 3 MiB (64+(12*256)) x 1k sectors
 
-With FileDir and Files and System adjusted for 4k sectors, using 64-bit values for sector addresses, with on-disk storage of bitmaps to relieve memory pressure, and with an open-ended chain of expanding indirection for finding the nth file block, an extended Oberon file system may address a much larger volume:
+With FileDir and Files and System adjusted for 4k sectors, using 64-bit values for sector addresses, with on-disk storage of bitmaps to relieve memory pressure, and with an open-ended chain of expanding indirection for finding the nth file block, an extended Oberon file system (EXOFS) may address a much larger volume:
 
     * disk size - 2 ZiB  ((2^64)/29) x 4k sectors or 564.9 GiB with 32-bit sector values ((2^32)/29) x 4k sectors
     * file size - limited to partition size
