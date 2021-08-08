@@ -61,13 +61,14 @@ TYPE
         RECORD
           mark*: INTEGER;
           zero*: INTEGER;
-          next*: Val64;       
-          fill*: ARRAY 48 OF CHAR;
+          next*: Val64; (* sector of next HeaderPage in list Full, Partial, or Empty list *)
+          bmap*: VAL64; (* 64-entry bitmap of header entries used *)
+          fill*: ARRAY 40 OF CHAR;
           hdr*: ARRAY HdrPgSize OF FileHeader
         END ;
 ```
 
-The FileHeader and HeaderPage above are a departure from the original Oberon file system which located the FileHeader at the start of a file. The above scheme allows file data to begin at offset zero of underlying disk sectors in the storage medium, simplifying the mapping of files into memory should that be desired by an operating system implemeting the file system. In the above scheme the FileHeaders are collected into HeaderPages which include a Next field pointing to a next non-full HeaderPage sector to assist recycling of FileHeader entries. Also in the above system filenames are not stored in FileHeaders, allowing the implementation of symbolic and hard links, should those be desired.
+The FileHeader and HeaderPage above are a departure from the original Oberon file system which located the FileHeader at the start of a file. The above scheme allows file data to begin at offset zero of underlying disk sectors in the storage medium, simplifying the mapping of files into memory should that be desired by an operating system implemeting the file system. In the above scheme the FileHeaders are collected into HeaderPages which include a Next field pointing to a next full, partially-full, or empty HeaderPage sector to assist recycling of FileHeader entries. Also in the above system filenames are not stored in FileHeaders, allowing the implementation of symbolic and hard links, should those be desired.
 
 Another departure of the above scheme is the sectab array of the FileHeader structure containing only four entries in which the last entry is reserved to point to an array (page) of 511 values with one greater degree of indirection and one value (the 512th) recapitulating the scheme a further degree of indirection. 255T can be addressed with three levels of indirection and the scheme can be extended indefinitely.
 
