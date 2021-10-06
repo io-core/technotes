@@ -1,68 +1,24 @@
-# Tech Note 016 - ion path
-### IO Network file system and the path microlanguage
+# Tech Note 016 - Command parameters, context, argc/argv, the clipboard, messages, and namespaces in IO
+### Provide a unified namespace for multi-language programming and user interaction in IO
 
-* 'with' or 'to' defined in standardized modules exporting io network filesystem objects
-* equivalent to 9fs
- 1 standard message format
- 2 per-context namspace with bind and mount
- 3 union mounts, etc.
- 4 chainable
-
-
- () sub operation
- [] group parallel
- {} group sequential
- /**/ recursive walk until 
- * match any 
- < localized.operation on /some/data 
- $cmdpath provides list of assumed module prefixes when module part is unspecified
-
-$cmdpath="bin:sbin:Files:Tools:OXP"
-
-A dynamic module may update its cmd section to include launchers for binaries in a path
-An interpreted module may update its cmd section to include newly defined procedures
-
- < uniq < sort < grep ERROR /var/log/*.log                    performs work locally
- /mnt/remote/*/var/log < uniq < sort < grep ERROR /*.log      performs work remotely
- /mnt/remote/*/repo/project < diff (/work/Test.Mod) (/old/Test.Mod)
- 
-
- 3  tf flush      - <>
- 4  tf attach  @  i <>
- 5  tf walk    /  i name 
- 6  tf open       i <>
- 7  tf create  ^  i name
- 8  tf read    ?  i offset:amt
- 9  tf write   !  i offset:data
- 10 tf clunk   %  i <>
- 11 tf remove  ~  i <>
- 12 tf stat    #  i <>
- 13 tf wstat   %  i data
+* At command invocation time, whether on click or in a command script or on receipt of a message:
+ 1 Available modules (loaded or not) provide a namespace for commands in the text user interface and command scripts and message sends
+ 2 The modules namespace is a linear concatenation of Module.Command(s)
+ 3 bin paths or union mounts per context can tailor the modules visible in the namespace (linear per context)
+ 4 independent instances of modules on import can tailor the behavior of the visible modules per importing module
+ 5 There may be relevent UI state (selected text, marker positions, clipboard stack of content)
+ 6 There may be relevent environment values (per context)
+ 7 There may be open streams for input and output and error
+* At compile time 
+ 1 
 
 
-$i=/foo^bar            create bar in foo and assign reference to i
-$i!:"Hello world"       write "Hello world" to i at current offset
-/foo/bar?              read contents of bar in foo
-$i~                    remove i (bar) from foo
-$j=/foo/baz            assign /foo/baz to reference j
-$j?300:512             read 512 bytes from offset 300
-/mnt/remote/*/etc/hosts!-1:(cat (/etc/hostip?:) " " (/etc/hostname?:))
-                       adds an entry for current machine to everybody's hosts file
-
-
-/build/**/*.o~           remove .o files in subdirectories of build  /*
-
-operations on ids in messages map to operations on pointers to records
-
-
-PROCEDURE to (VAR tag,fid: INTEGER; VAR op: ARRAY OF CHAR; param: IONOP): IONOP;
-
-result string may be found in op
-
-
-foo := to( <root>,1,"ls",NULL);
-
-
-PROCEDURE do (VAR tag, fid: INTEGER; VAR op: ARRAY OF CHAR): DEES, DOSE;
-
+* something
+ 1 saving a referenced global variable on the stack upon procedure entry
+ 2 accessing and modifying the global variable as usual
+ 3 restoring the cached value upon procedure exit
+* A `DYN` keyword and compiler assistance can reduce boilerplate
+* DYN variables may enable the common lisp condition system in Oberon
+* This kind of dynamic scope may only work local to the thread of execution
+* This kind of dynamic scope is ineficient for large objects
 

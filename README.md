@@ -15,3 +15,4 @@ Technical notes for IO:
 * 013: A Call Message and Boot Scripts
 * 014: Interfaces for Oberon-2
 * 015: Dynamically scoped variables for Oberon
+* 016: Command parameters, context, argc/argv, the clipboard, messages, and namespaces in IO
